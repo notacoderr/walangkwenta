@@ -91,8 +91,29 @@ class EventListener implements Listener{
 	{
 		switch( $event->getBlock()->getId() )
 		{
-			case 1: case 4:
-				//dito mo lagay yung sa MythicRelic mo. 1 ata stone tas 4 cobble, di ko matandaan
+			case 1: //id ata to ng stone
+				if($event->getPlayer()->getGamemode != 1) //if not creative mode
+				{
+					if(mt_rand(1, 10) <= 2)
+					//Math random 1 to 10 lang para mabilis
+					// < = 2 para 20%, means pag ang math_random is 2 or mas mababa mag po-proceed sya
+					// pag <= 5, 50% chance
+					// 9 - 90% chance
+					// 10 - 100 chance
+					{
+					    //$event->getPlayer()->getInventory->addItem();
+					}
+				}
+			break;
+			case 4: //id ata ng cobblestone
+				if($event->getPlayer()->getGamemode != 1) //if not creative mode
+				{
+					if(mt_rand(1, 10) <= 4)
+					//kunware mas madali makakuha sa cobble haha ikaw na bahala
+					{
+					    //$event->getPlayer()->getInventory->addItem();
+					}
+				}
 			break;
 			default:
 			if($event->getPlayer()->getGamemode != 1) //if not creative mode
