@@ -130,8 +130,7 @@ class EventListener implements Listener{
         $subtitle = "§aRespawning...";
         $player->addTitle($title, $subtitle);
     }
-
-	public function onHeld(PlayerItemHeldEvent $ev){
+    public function onHeld(PlayerItemHeldEvent $ev){
     	$item = $ev->getItem();
     	$player = $ev->getPlayer();
     	if($item->getId() == Item::SKULL){
