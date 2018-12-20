@@ -16,7 +16,7 @@ use pocketmine\event\player\{
 	PlayerChatEvent, PlayerDeathEvent, PlayerInteractEvent, PlayerItemHeldEvent, PlayerRespawnEvent
 };
 
-use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\block\{BlockBreakEvent, BlockPlaceEvent};
 
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\item\Item;
@@ -95,9 +95,9 @@ class EventListener implements Listener{
 					{
 				             $name = $event->getPlayer()->getName();
 					     $relic = Item::get(54, 101, 1);
-                                             $relic->setCustomName(TF::RESET . TF::GREEN . "Ancient" . TF::GRAY . " relic");
+                                             $relic->setCustomName(TF::RESET . TF::GREEN . "Celestial" . TF::GRAY . " Artifact");
                                              $event->getPlayer()->getInventory()->addItem($relic);
-                                             $event->getPlayer()->getServer()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Ancient Relic!");
+                                             $event->getPlayer()->getServer()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Celestial Artifact!");
 					}
 				}
 			break;
@@ -157,11 +157,11 @@ class EventListener implements Listener{
             case "101":
             $relic = Item::get(54, 103, 1);
             $item1 = Item::get(310, 0, 1);
-            $item1->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Helmet");
+            $item1->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Adaptive" . TF::GRAY . " Helm");
             $item1->addEnchantment(new EnchantmentInstance($prot, 3));
             $item1->addEnchantment(new EnchantmentInstance($unb, 3));
             $item2 = Item::get(311, 0, 1);
-            $item2->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Chestplate");
+            $item2->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Demons" . TF::GRAY . " Advent");
             $item2->addEnchantment(new EnchantmentInstance($prot, 3));
             $item2->addEnchantment(new EnchantmentInstance($unb, 3));
             
@@ -170,28 +170,32 @@ class EventListener implements Listener{
             $item3->addEnchantment(new EnchantmentInstance($prot, 3));
             $item3->addEnchantment(new EnchantmentInstance($unb, 3));
             $item4 = Item::get(313, 0, 1);
-            $item4->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Boots");
+            $item4->setCustomName(TF::RESET . TF::RED . "Rapid" . TF::GRAY . " Boots");
             $item4->addEnchantment(new EnchantmentInstance($prot, 3));
             $item4->addEnchantment(new EnchantmentInstance($unb, 3));
             $sword = Item::get(276, 0, 1);
-            $sword->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Sword");
+            $sword->setCustomName(TF::RESET . TF::RED . "Flaming" . TF::GRAY . " Sword");
             $sword->addEnchantment(new EnchantmentInstance($sharp, 3));
             $sword->addEnchantment(new EnchantmentInstance($unb, 3));
+	    $sword1 = Item::get(276, 0, 1);
+            $sword1->setCustomName(TF::RESET . TF::RED . "The Bloodthirster");
+            $sword1->addEnchantment(new EnchantmentInstance($sharp, 3));
+            $sword1->addEnchantment(new EnchantmentInstance($unb, 3));
             $pickaxe = Item::get(278, 0, 1);
-            $pickaxe->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Pickaxe");
+            $pickaxe->setCustomName(TF::RESET . TF::RED . "Giga" . TF::GRAY . " Drill");
             $pickaxe->addEnchantment(new EnchantmentInstance($eff, 3));
             $pickaxe->addEnchantment(new EnchantmentInstance($unb, 3));
             $axe = Item::get(279, 0, 1);
-            $axe->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Axe");
+            $axe->setCustomName(TF::RESET . TF::RED . "Pyro" . TF::GRAY . " Axe");
             $axe->addEnchantment(new EnchantmentInstance($eff, 3));
             $axe->addEnchantment(new EnchantmentInstance($unb, 3));
             $diamond = Item::get(264, 0, 64);
             $iron = Item::get(265, 0, 256);
             $gold = Item::get(266, 0, 128);
-            $tobegiven1 = [$item1, $item2, $item3, $item4, $sword, $pickaxe, $axe, $diamond, $iron, $gold]; //array1
+            $tobegiven1 = [$item1, $item2, $item3, $item4, $sword, $pickaxe, $axe, $diamond, $iron, $gold, $sword1]; //array1
             $rand1 = mt_rand(0, 1);
             $player->getInventory()->addItem($tobegiven1[$rand1]);
-            $player->sendMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::GRAY . " Opening Relic...");
+            $player->sendMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::GRAY . " Opening Artifact...");
             $event->setCancelled();
             $player->getInventory()->removeItem($relic);
             break;
@@ -210,19 +214,7 @@ class EventListener implements Listener{
     			$nbt->setString("head", strtolower($p->getName()));
     			$head->setNamedTag($nbt);
     			$k->getInventory()->addItem($head);
-				$k->sendMessage("§l§8(§b!§8)" . TextFormat::RESET . TextFormat::GRAY . " You have obtained " . TextFormat::AQUA . $p->getName() . "'s Head.");
-				
-                 /*$light = new AddEntityPacket(); //@ Lightning Strike When Dead pakiayus papc XD
-                 $light->type = 93;
-                 $light->eid = Entity::$entityCount++;
-                 $light->metadata = array();
-                 $light->speedX = 0;
-                 $light->speedY = 0;
-                 $light->speedZ = 0;
-                 $light->x = $p->x;
-                 $light->y = $p->y;
-                 $light->z = $p->z;
-                 $p->dataPacket($light);*/
+				$k->sendMessage("§l§8(§b!§8)" . TextFormat::RESET . TextFormat::GRAY . " You have obtained " . TextFormat::AQUA . $p->getName() . "'s Head");
       
            }
 		}
