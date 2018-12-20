@@ -1,0 +1,4 @@
+breakmoney:
+  365: 32-50 #di ko alam 365 hula lang | (random money between 32 / 50)
+  
+killmoney: 9999 #soon
