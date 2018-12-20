@@ -25,6 +25,11 @@ use pocketmine\Server;
 use pocketmine\scheduler\Task;
 use pocketmine\entity\Entity;
 
+use pocketmine\item\enchantment\Enchantment;
+use pocketmine\item\enchantment\EnchantmentInstance;
+use pocketmine\block\Block;
+use pocketmine\utils\Random;
+
 class EventListener implements Listener{
 
     /** @var Core */
@@ -113,7 +118,7 @@ class EventListener implements Listener{
 				if(array_key_exists($blockid, $this->plugin->premyo->getNested("breakmoney")))
 				{
 					$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney." . $blockid) );
-					Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_random($pr[0], $pr[1]))
+					Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_random($pr[0], $pr[1]));
 				}
 			}
 		}
