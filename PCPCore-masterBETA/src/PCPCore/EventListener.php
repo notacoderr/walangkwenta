@@ -95,11 +95,14 @@ class EventListener implements Listener{
 				//dito mo lagay yung sa MythicRelic mo. 1 ata stone tas 4 cobble, di ko matandaan
 			break;
 			default:
-			$blockid = $event->getBlock()->getId();
-			if(array_key_exists($blockid, $this->plugin->premyo->getNested("breakmoney")))
+			if($event->getPlayer()->getGamemode != 1) //if not creative mode
 			{
-				$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney." . $blockid) );
-				Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_random($pr[0], $pr[1]))
+				$blockid = $event->getBlock()->getId();
+				if(array_key_exists($blockid, $this->plugin->premyo->getNested("breakmoney")))
+				{
+					$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney." . $blockid) );
+					Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_random($pr[0], $pr[1]))
+				}
 			}
 		}
    	}
