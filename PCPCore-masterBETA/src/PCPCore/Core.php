@@ -190,6 +190,8 @@ class Core extends PluginBase{
         
         $this->saveResource("broadcast.yml");
         $this->settings = new Config($this->getDataFolder() . "broadcast.yml", Config::YAML);
+	$this->saveResource("premyo.yml");
+	$this->premyo = new Config($this->getDataFolder() . "premyo.yml", Config::YAML);
         
         if(is_numeric($this->settings->get("seconds"))){
             $this->getScheduler()->scheduleRepeatingTask(new BroadcastTask($this), $this->settings->get("seconds") * 20);
