@@ -15,6 +15,9 @@ use pocketmine\event\entity\{
 use pocketmine\event\player\{
 	PlayerChatEvent, PlayerDeathEvent, PlayerInteractEvent, PlayerItemHeldEvent, PlayerRespawnEvent
 };
+
+use pocketmine\event\block\BlockBreakEvent;
+
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\item\Item;
 use pocketmine\Player;
@@ -59,17 +62,17 @@ class EventListener implements Listener{
         $player = $event->getPlayer();
         $item = $event->getItem();
         switch($item->getId()){
-			case Item::ENCHANTED_BOOK:
-				if($item->getDamage() == 101){
-					$item = Item::get(Item::SKULL, mt_rand(3, 10), 1);
-					$item->setCustomName(Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
-					$item->setLore(Core::MASK_DAMAGE_TO_LORE[$item->getDamage()]);
-					$ic = clone $event->getItem();
-					$ic->setCount(1);
-                    $player->getInventory()->removeItem($ic);
-					$player->getInventory()->addItem($item);
-					$player->addTitle(TextFormat::GREEN . TextFormat::BOLD . "Obtained", TextFormat::YELLOW . Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
-				}
+		case Item::ENCHANTED_BOOK:
+		if($item->getDamage() == 101){
+			$item = Item::get(Item::SKULL, mt_rand(3, 10), 1);
+			$item->setCustomName(Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
+			$item->setLore(Core::MASK_DAMAGE_TO_LORE[$item->getDamage()]);
+			$ic = clone $event->getItem();
+			$ic->setCount(1);
+        	        $player->getInventory()->removeItem($ic);
+			$player->getInventory()->addItem($item);
+			$player->addTitle(TextFormat::GREEN . TextFormat::BOLD . "Obtained", TextFormat::YELLOW . Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
+		}
         }
     }
     
@@ -84,6 +87,23 @@ class EventListener implements Listener{
         }
     }
 
+	function onBreak(BlockBreakEvent $event) : void
+	{
+		switch( $event->getBlock()->getId() )
+		{
+			case 1: case 4:
+				//dito mo lagay yung sa MythicRelic mo. 1 ata stone tas 4 cobble, di ko matandaan
+			break;
+			default:
+			$blockid = $event->getBlock()->getId();
+			if(array_key_exists($blockid, $this->plugin->premyo->getNested("breakmoney")))
+			{
+				$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney." . $blockid) );
+				Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_random($pr[0], $pr[1]))
+			}
+		}
+   	}
+	
     /*public function onMotion(EntityMotionEvent $event) : void{
         $entity = $event->getEntity();
         if($entity instanceof Living && !$entity instanceof Player){
