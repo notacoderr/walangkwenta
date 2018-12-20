@@ -6,7 +6,7 @@ namespace PCPCore;
 
 use PCPCore\Core;
 
-use pocketmine\utils\TextFormat;
+use pocketmine\utils\TextFormat as TF;
 use pocketmine\entity\Living;
 use pocketmine\event\Listener;
 use pocketmine\event\entity\{
@@ -23,15 +23,7 @@ use pocketmine\item\Item;
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\scheduler\Task;
-
 use pocketmine\entity\Entity;
-
-use pocketmine\block\Stair;
-use pocketmine\network\mcpe\protocol\types\EntityLink;
-use pocketmine\math\Vector3;
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
-use pocketmine\network\mcpe\protocol\SetEntityLinkPacket;
-
 
 class EventListener implements Listener{
 
@@ -101,7 +93,11 @@ class EventListener implements Listener{
 					// 9 - 90% chance
 					// 10 - 100 chance
 					{
-					    //$event->getPlayer()->getInventory->addItem();
+				             $name = $event->getPlayer()->getName();
+					     $relic = Item::get(54, 101, 1);
+                                             $relic->setCustomName(TF::RESET . TF::GREEN . "Ancient" . TF::GRAY . " relic");
+                                             $event->getPlayer()->getInventory()->addItem($relic);
+                                             $event->getPlayer()->getServer()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Ancient Relic!");
 					}
 				}
 			break;
@@ -127,13 +123,6 @@ class EventListener implements Listener{
 			}
 		}
    	}
-	
-    /*public function onMotion(EntityMotionEvent $event) : void{
-        $entity = $event->getEntity();
-        if($entity instanceof Living && !$entity instanceof Player){
-            $event->setCancelled(true);
-        }
-    }*/
 
     public function onRespawn(PlayerRespawnEvent $event) : void{
         $player = $event->getPlayer();
@@ -153,6 +142,62 @@ class EventListener implements Listener{
 			$player->sendPopup(TextFormat::RESET . TextFormat::YELLOW . "Mask Charm");
 		}
 	}
+    public function onTap(BlockPlaceEvent $event){
+	$player = $event->getPlayer();
+        $item = $event->getItem();
+        $damage = $event->getItem()->getDamage();
+        $prot = Enchantment::getEnchantment(0);
+        $unb = Enchantment::getEnchantment(17);
+        $sharp = Enchantment::getEnchantment(9);
+        $eff = Enchantment::getEnchantment(15);
+        $kb = Enchantment::getEnchantment(12);
+        $loot = Enchantment::getEnchantment(14);
+        $fire = Enchantment::getEnchantment(13);
+        $resp = Enchantment::getEnchantment(6);
+        switch($damage) {
+            case "101":
+            $relic = Item::get(54, 103, 1);
+            $item1 = Item::get(310, 0, 1);
+            $item1->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Helmet");
+            $item1->addEnchantment(new EnchantmentInstance($prot, 3));
+            $item1->addEnchantment(new EnchantmentInstance($unb, 3));
+            $item2 = Item::get(311, 0, 1);
+            $item2->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Chestplate");
+            $item2->addEnchantment(new EnchantmentInstance($prot, 3));
+            $item2->addEnchantment(new EnchantmentInstance($unb, 3));
+            
+            $item3 = Item::get(312, 0, 1);
+            $item3->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Leggings");
+            $item3->addEnchantment(new EnchantmentInstance($prot, 3));
+            $item3->addEnchantment(new EnchantmentInstance($unb, 3));
+            $item4 = Item::get(313, 0, 1);
+            $item4->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Boots");
+            $item4->addEnchantment(new EnchantmentInstance($prot, 3));
+            $item4->addEnchantment(new EnchantmentInstance($unb, 3));
+            $sword = Item::get(276, 0, 1);
+            $sword->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Sword");
+            $sword->addEnchantment(new EnchantmentInstance($sharp, 3));
+            $sword->addEnchantment(new EnchantmentInstance($unb, 3));
+            $pickaxe = Item::get(278, 0, 1);
+            $pickaxe->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Pickaxe");
+            $pickaxe->addEnchantment(new EnchantmentInstance($eff, 3));
+            $pickaxe->addEnchantment(new EnchantmentInstance($unb, 3));
+            $axe = Item::get(279, 0, 1);
+            $axe->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Axe");
+            $axe->addEnchantment(new EnchantmentInstance($eff, 3));
+            $axe->addEnchantment(new EnchantmentInstance($unb, 3));
+            $diamond = Item::get(264, 0, 64);
+            $iron = Item::get(265, 0, 256);
+            $gold = Item::get(266, 0, 128);
+            $tobegiven1 = [$item1, $item2, $item3, $item4, $sword, $pickaxe, $axe, $diamond, $iron, $gold]; //array1
+            $rand1 = mt_rand(0, 1);
+            $player->getInventory()->addItem($tobegiven1[$rand1]);
+            $player->sendMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::GRAY . " Opening Relic...");
+            $event->setCancelled();
+            $player->getInventory()->removeItem($relic);
+            break;
+	}
+    }
 	
 	public function onDeath(PlayerDeathEvent $ev){
     	$p = $ev->getPlayer();
@@ -168,7 +213,7 @@ class EventListener implements Listener{
     			$k->getInventory()->addItem($head);
 				$k->sendMessage("§l§8(§b!§8)" . TextFormat::RESET . TextFormat::GRAY . " You have obtained " . TextFormat::AQUA . $p->getName() . "'s Head.");
 				
-                 /*$light = new AddEntityPacket();
+                 /*$light = new AddEntityPacket(); //@ Lightning Strike When Dead pakiayus papc XD
                  $light->type = 93;
                  $light->eid = Entity::$entityCount++;
                  $light->metadata = array();
