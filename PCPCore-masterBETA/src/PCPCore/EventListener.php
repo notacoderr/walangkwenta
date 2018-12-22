@@ -89,7 +89,7 @@ class EventListener implements Listener{
 		switch( $event->getBlock()->getId() )
 		{
 			case 1: //id ata to ng stone
-				if($event->getPlayer()->getGamemode != 1) //if not creative mode
+				if($event->getPlayer()->getGamemode() != 1) //if not creative mode
 				{
 					if(mt_rand(1, 10) <= 2)
 					{
@@ -102,7 +102,7 @@ class EventListener implements Listener{
 				}
 			break;
 			case 4: //id ata ng cobblestone
-				if($event->getPlayer()->getGamemode != 1) //if not creative mode
+				if($event->getPlayer()->getGamemode() != 1) //if not creative mode
 				{
 					if(mt_rand(1, 10) <= 4)
 					//kunware mas madali makakuha sa cobble haha ikaw na bahala
@@ -112,7 +112,7 @@ class EventListener implements Listener{
 				}
 			break;
 			default:
-			if($event->getPlayer()->getGamemode != 1) //if not creative mode
+			if($event->getPlayer()->getGamemode() != 1) //if not creative mode
 			{
 				$blockid = $event->getBlock()->getId();
 				if(array_key_exists($blockid, $this->plugin->premyo->getNested("breakmoney")))
