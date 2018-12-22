@@ -113,7 +113,7 @@ class EventListener implements Listener{
 				*/
 			}
 			
-			if(array_key_exists((string) $blockid. ".". $blockmeta, $this->plugin->premyo->getNested("breakmoney")))
+			if(array_key_exists($blockid. "-". $blockmeta, $this->plugin->premyo->getNested("breakmoney")))
 			{
 				$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney." . $blockid) );
 				Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_random($pr[0], $pr[1]));
