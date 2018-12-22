@@ -95,9 +95,9 @@ class EventListener implements Listener{
 					{
 				             $name = $event->getPlayer()->getName();
 					     $relic = Item::get(54, 101, 1);
-                                             $relic->setCustomName(TF::RESET . TF::GREEN . "Celestial" . TF::GRAY . " Artifact");
+                                             $relic->setCustomName(TF::RESET . TF::WHITE . "Pocket" . TF::AQUA . " Artifact");
                                              $event->getPlayer()->getInventory()->addItem($relic);
-                                             $event->getPlayer()->getServer()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Celestial Artifact!");
+                                             $event->getPlayer()->getServer()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Pocket Artifact!");
 					}
 				}
 			break;
@@ -155,7 +155,7 @@ class EventListener implements Listener{
         $resp = Enchantment::getEnchantment(6);
         switch($damage) {
             case "101":
-            $relic = Item::get(54, 103, 1);
+            $relic = Item::get(54, 101, 1);
             $item1 = Item::get(310, 0, 1);
             $item1->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Adaptive" . TF::GRAY . " Helm");
             $item1->addEnchantment(new EnchantmentInstance($prot, 3));
@@ -164,7 +164,6 @@ class EventListener implements Listener{
             $item2->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Demons" . TF::GRAY . " Advent");
             $item2->addEnchantment(new EnchantmentInstance($prot, 3));
             $item2->addEnchantment(new EnchantmentInstance($unb, 3));
-            
             $item3 = Item::get(312, 0, 1);
             $item3->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Leggings");
             $item3->addEnchantment(new EnchantmentInstance($prot, 3));
@@ -193,7 +192,7 @@ class EventListener implements Listener{
             $iron = Item::get(265, 0, 256);
             $gold = Item::get(266, 0, 128);
             $tobegiven1 = [$item1, $item2, $item3, $item4, $sword, $pickaxe, $axe, $diamond, $iron, $gold, $sword1]; //array1
-            $rand1 = mt_rand(0, 1);
+            $rand1 = mt_rand(0, 11);
             $player->getInventory()->addItem($tobegiven1[$rand1]);
             $player->sendMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::GRAY . " Opening Artifact...");
             $event->setCancelled();
