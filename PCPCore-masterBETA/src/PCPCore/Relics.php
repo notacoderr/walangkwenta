@@ -26,11 +26,11 @@ class Relics {
 			$relic = Item::get(146, 69, 1);
       			switch( strtolower($this->getRandomRelic()) )
       			{
-				case "common": $relic->setLore([ TF::AQUA. "Common" ]); break;
-				case "rare": $relic->setLore([ TF::YELLOW. "Rare" ]); break;
-				case "exotic": $relic->setLore([ TF::PURPLE. "Exotic" ]); break;
-				case "legendary": $relic->setLore([ TF::DARK_PURPLE. "Legendary" ]); break;
-				case "mythic": $relic->setLore([ TF::BLACK. "Mythic" ]); break;
+				case "tier i": $relic->setLore([ TF::AQUA. "Tier I" ]); break;
+				case "tier ii": $relic->setLore([ TF::YELLOW. "Tier II" ]); break;
+				case "tier iii": $relic->setLore([ TF::PURPLE. "Tier III" ]); break;
+				case "tier iv": $relic->setLore([ TF::DARK_PURPLE. "Tier IV" ]); break;
+				case "tier v": $relic->setLore([ TF::BLACK. "Tier V" ]); break;
 				default:
 					return false;
       			}
@@ -51,6 +51,7 @@ class Relics {
 	{
 		$itemLore = $item->getlore();
       	 	$itemLevel = (string) TF::clean( $itemLore[0] );
+		
 		//soon.. will give player (a) random item(s) from it's respective rarity
 	}
   
