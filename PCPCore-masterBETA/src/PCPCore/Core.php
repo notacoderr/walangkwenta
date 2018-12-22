@@ -166,7 +166,7 @@ class Core extends PluginBase{
     }
 
     public function onEnable() : void{
-	$this->relics = new Relics($this);
+	$this->relic = new Relics($this);
         // COMMANDS \\
         $this->getServer()->getCommandMap()->registerAll("PCPCore", [
             new FlyCommand("fly", $this),
@@ -191,6 +191,8 @@ class Core extends PluginBase{
         $this->settings = new Config($this->getDataFolder() . "broadcast.yml", Config::YAML);
 	$this->saveResource("premyo.yml");
 	$this->premyo = new Config($this->getDataFolder() . "premyo.yml", Config::YAML);
+	$this->saveResource("relics.yml");
+	$this->relics = new Config($this->getDataFolder() . "relics.yml", Config::YAML);
 
         if(is_numeric($this->settings->get("seconds"))){
             $this->getScheduler()->scheduleRepeatingTask(new BroadcastTask($this), $this->settings->get("seconds") * 20);
