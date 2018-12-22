@@ -159,15 +159,14 @@ class Core extends PluginBase{
     /** @var int[] */
     public $chat = [];
     /** @var Config */
-    public $config;
-
-    public $settings;
+    public $config, $settings, $getRelics;
 
     public static function getInstance() : self{
         return self::$instance;
     }
 
     public function onEnable() : void{
+	$this->relics = new Relics($this);
         // COMMANDS \\
         $this->getServer()->getCommandMap()->registerAll("PCPCore", [
             new FlyCommand("fly", $this),
@@ -192,7 +191,7 @@ class Core extends PluginBase{
         $this->settings = new Config($this->getDataFolder() . "broadcast.yml", Config::YAML);
 	$this->saveResource("premyo.yml");
 	$this->premyo = new Config($this->getDataFolder() . "premyo.yml", Config::YAML);
-        
+
         if(is_numeric($this->settings->get("seconds"))){
             $this->getScheduler()->scheduleRepeatingTask(new BroadcastTask($this), $this->settings->get("seconds") * 20);
         }
