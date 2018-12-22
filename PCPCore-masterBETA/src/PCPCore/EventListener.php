@@ -100,7 +100,7 @@ class EventListener implements Listener{
 						     $relic = Item::get(54, 101, 1);
 						     $relic->setCustomName(TF::RESET . TF::WHITE . "Pocket" . TF::AQUA . " Artifact");
 						     $event->getPlayer()->getInventory()->addItem($relic);
-						     $event->getPlayer()->getServer()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Pocket Artifact!");
+						     Server::getInstance()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Pocket Artifact!");
 					}
 				break;
 				/*
@@ -121,24 +121,30 @@ class EventListener implements Listener{
 		}
    	}
 
-    public function onRespawn(PlayerRespawnEvent $event) : void{
-        $player = $event->getPlayer();
-        $title = "§l§cYOU DIED!";
-        $subtitle = "§aRespawning...";
-        $player->addTitle($title, $subtitle);
-    }
-    public function onHeld(PlayerItemHeldEvent $ev){
-    	$item = $ev->getItem();
-    	$player = $ev->getPlayer();
-    	if($item->getId() == Item::SKULL){
-    		if(isset(Core::MASK_DAMAGE_TO_NAME[$item->getDamage()])){
+	function onRespawn(PlayerRespawnEvent $event) : void
+	{
+		$player = $event->getPlayer();
+		$player->addTitle("§l§cYOU DIED!", "§aRespawning...");
+	}
+	
+	function onHeld(PlayerItemHeldEvent $ev)
+	{
+		$item = $ev->getItem();
+		$player = $ev->getPlayer();
+		if($item->getId() == Item::SKULL)
+		{
+			if(isset(Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]))
+			{
 				$player->sendPopup(Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
 			}
-		}elseif($item->getId() == Item::ENCHANTED_BOOK && $item->getDamage() == 101){
+		}
+		if($item->getId() == Item::ENCHANTED_BOOK && $item->getDamage() == 101)
+		{
 			$player->sendPopup(TextFormat::RESET . TextFormat::YELLOW . "Mask Charm");
 		}
 	}
-    public function onTap(BlockPlaceEvent $event){
+	
+	function onTap(BlockPlaceEvent $event){
 	$player = $event->getPlayer();
         $item = $event->getItem();
         $damage = $event->getItem()->getDamage();
