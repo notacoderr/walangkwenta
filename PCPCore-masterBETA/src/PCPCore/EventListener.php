@@ -226,8 +226,8 @@ class EventListener implements Listener{
 				$eco = Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI");
 				$pm = explode( "-", $this->plugin->premyo->getNested("killmoney.victim") );
 				$km = explode( "-", $this->plugin->premyo->getNested("killmoney.killer") );
-				$eco->addMoney($k, mt_rand($km[0], $km[1])); //killer's added money (min-max)
-				$eco->reduceMoney($p, mt_rand($pm[0], $pm[1])); //player/victim's reduced money
+				$eco->addMoney($k, mt_rand((int) $km[0], (int) $km[1])); //killer's added money (min-max)
+				$eco->reduceMoney($p, mt_rand((int) $pm[0], (int) $pm[1])); //player/victim's reduced money
 			}
 		}
 	}
