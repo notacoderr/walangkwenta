@@ -51,7 +51,7 @@ class Relics {
 	{
 		$itemLore = $item->getlore();
       	 	$itemLevel = (string) TF::clean( $itemLore[0] );
-		//soon..
+		//soon.. will give player (a) random item(s) from it's respective rarity
 	}
   
 	private isLucky() : bool
@@ -61,7 +61,7 @@ class Relics {
   
 	private getRandomRelic() : string
 	{
-		$relics = (array) $this->main->premyo->getNested("relics");
+		$relics = (array) $this->main->relics->getNested("relics-drop-rate");
 		$sum = (int) array_sum($relics);
 		
     		if($sum > 100)
