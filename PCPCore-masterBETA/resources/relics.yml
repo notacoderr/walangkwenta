@@ -1,0 +1,4 @@
+#must be total of 100 only
+relics-drop-rate:
+  Common: 50
+  Mythic: 50
