@@ -86,40 +86,35 @@ class EventListener implements Listener{
 
 	function onBreak(BlockBreakEvent $event) : void
 	{
-		switch( $event->getBlock()->getId() )
+		if (! $event->getPlayer()->isCreative())
 		{
-			case 1: //id ata to ng stone
-				if($event->getPlayer()->getGamemode() != 1) //if not creative mode
-				{
+			$blockid = $event->getBlock()->getId();
+			switch( $blockid )
+			{
+				case 1:
 					if(mt_rand(1, 10) <= 2)
 					{
-				             $name = $event->getPlayer()->getName();
-					     $relic = Item::get(54, 101, 1);
-                                             $relic->setCustomName(TF::RESET . TF::WHITE . "Pocket" . TF::AQUA . " Artifact");
-                                             $event->getPlayer()->getInventory()->addItem($relic);
-                                             $event->getPlayer()->getServer()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Pocket Artifact!");
+						     $name = $event->getPlayer()->getName();
+						     $relic = Item::get(54, 101, 1);
+						     $relic->setCustomName(TF::RESET . TF::WHITE . "Pocket" . TF::AQUA . " Artifact");
+						     $event->getPlayer()->getInventory()->addItem($relic);
+						     $event->getPlayer()->getServer()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Pocket Artifact!");
 					}
-				}
-			break;
-			case 4: //id ata ng cobblestone
-				if($event->getPlayer()->getGamemode() != 1) //if not creative mode
-				{
+				break;
+				/*
+				case 4: id ata ng cobblestone
 					if(mt_rand(1, 10) <= 4)
-					//kunware mas madali makakuha sa cobble haha ikaw na bahala
 					{
-					    //$event->getPlayer()->getInventory->addItem();
+						
 					}
-				}
-			break;
-			default:
-			if($event->getPlayer()->getGamemode() != 1) //if not creative mode
+				break;
+				*/
+			}
+			
+			if(array_key_exists($blockid, $this->plugin->premyo->getNested("breakmoney")))
 			{
-				$blockid = $event->getBlock()->getId();
-				if(array_key_exists($blockid, $this->plugin->premyo->getNested("breakmoney")))
-				{
-					$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney." . $blockid) );
-					Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_random($pr[0], $pr[1]));
-				}
+				$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney." . $blockid) );
+				Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_random($pr[0], $pr[1]));
 			}
 		}
    	}
