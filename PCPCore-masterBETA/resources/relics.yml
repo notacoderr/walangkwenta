@@ -1,4 +1,24 @@
 #must be total of 100 only
 relics-drop-rate:
-  Common: 50
-  Mythic: 50
+  tier1: 30
+  tier2: 28
+  tier3: 23
+  tier4: 12
+  tier5: 7
+
+contains:
+  tier1:
+    items: []
+    cmd: []
+  tier2:
+    items: []
+    cmd: []
+  tier3:
+    items: []
+    cmd: []
+  tier4:
+    items: []
+    cmd: []
+  tier5:
+    items: []
+    cmd: []
