@@ -89,6 +89,8 @@ class EventListener implements Listener{
 		if (! $event->getPlayer()->isCreative())
 		{
 			$blockid = $event->getBlock()->getId();
+			$blockmeta = $event->getBlock()->getDamage();
+			//This is for special stuffs like Relics
 			switch( $blockid )
 			{
 				case 1:
@@ -111,7 +113,7 @@ class EventListener implements Listener{
 				*/
 			}
 			
-			if(array_key_exists($blockid, $this->plugin->premyo->getNested("breakmoney")))
+			if(array_key_exists((string) $blockid. ".". $blockmeta, $this->plugin->premyo->getNested("breakmoney")))
 			{
 				$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney." . $blockid) );
 				Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_random($pr[0], $pr[1]));
@@ -196,21 +198,29 @@ class EventListener implements Listener{
 	}
     }
 	
-	public function onDeath(PlayerDeathEvent $ev){
-    	$p = $ev->getPlayer();
-    	$k = $ev->getPlayer()->getLastDamageCause();
-    	if($k instanceof EntityDamageByEntityEvent){
+	function onDeath(PlayerDeathEvent $ev) : void
+	{
+		$p = $ev->getPlayer();
+		$k = $ev->getPlayer()->getLastDamageCause();
+    		if($k instanceof EntityDamageByEntityEvent)
+		{
 			$k = $k->getDamager();
-    		if($k instanceof Player){
-    			$head = Item::get(Item::SKULL, mt_rand(50, 100), 1);
-    			$head->setCustomName(TextFormat::RESET . TextFormat::AQUA . $p->getName() . "'s Head");
-    			$nbt = $head->getNamedTag();
-    			$nbt->setString("head", strtolower($p->getName()));
-    			$head->setNamedTag($nbt);
-    			$k->getInventory()->addItem($head);
+			if($k instanceof Player)
+			{
+				$head = Item::get(Item::SKULL, mt_rand(50, 100), 1);
+				$head->setCustomName(TextFormat::RESET . TextFormat::AQUA . $p->getName() . "'s Head");
+				$nbt = $head->getNamedTag();
+				$nbt->setString("head", strtolower($p->getName()));
+				$head->setNamedTag($nbt);
+				$k->getInventory()->addItem($head);
 				$k->sendMessage("§l§8(§b!§8)" . TextFormat::RESET . TextFormat::GRAY . " You have obtained " . TextFormat::AQUA . $p->getName() . "'s Head");
-      
-           }
+				
+				$eco = Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI");
+				$pm = explode( "-", $this->plugin->premyo->getNested("killmoney.victim") );
+				$km = explode( "-", $this->plugin->premyo->getNested("killmoney.killer") );
+				$eco->addMoney($k, mt_rand($km[0], $km[1])); //killer's added money (min-max)
+				$eco->reduceMoney($p, mt_rand($pm[0], $pm[1])); //player/victim's reduced money
+			}
 		}
 	}
 }
