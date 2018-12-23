@@ -1,7 +1,7 @@
 chance-from:
   #id: #chance percentage out of 100
-  1-0: 15 #stone 
-  49-0: 80 #obsidian
+  1: 15 #stone 
+  49: 80 #obsidian
 
 ##must be total of 100 only
 relics-drop-rate:
