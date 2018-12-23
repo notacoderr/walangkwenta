@@ -58,19 +58,26 @@ class EventListener implements Listener{
     public function onInteract(PlayerInteractEvent $event) : void{
         $player = $event->getPlayer();
         $item = $event->getItem();
-        switch($item->getId()){
-		case Item::ENCHANTED_BOOK:
-		if($item->getDamage() == 101){
-			$item = Item::get(Item::SKULL, mt_rand(3, 10), 1);
-			$item->setCustomName(Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
-			$item->setLore(Core::MASK_DAMAGE_TO_LORE[$item->getDamage()]);
-			$ic = clone $event->getItem();
-			$ic->setCount(1);
-        	        $player->getInventory()->removeItem($ic);
-			$player->getInventory()->addItem($item);
-			$player->addTitle(TextFormat::GREEN . TextFormat::BOLD . "Obtained", TextFormat::YELLOW . Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
-		}
+	    
+        if($item->getId() == Item::ENCHANTED_BOOK && $item->getDamage() == 101)
+	{
+		$item = Item::get(Item::SKULL, mt_rand(3, 10), 1);
+		$item->setCustomName(Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
+		$item->setLore(Core::MASK_DAMAGE_TO_LORE[$item->getDamage()]);
+		$ic = clone $event->getItem();
+		$ic->setCount(1);
+        	$player->getInventory()->removeItem($ic);
+		$player->getInventory()->addItem($item);
+		$player->addTitle(TextFormat::GREEN . TextFormat::BOLD . "Obtained", TextFormat::YELLOW . Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
         }
+	    
+	//$item = $event->getItemHand();
+	if($item->getId() == 146 && $item->getDamage() == 69 && !$player->isCreative())
+	{
+		$this->plugin->relic->openRelic($player, $item);
+		$player->setItemInHand(Item::AIR);
+		$event->setCancelled();
+	}
     }
     
     public function onDamage(EntityDamageEvent $event) : void{
@@ -91,10 +98,10 @@ class EventListener implements Listener{
 			$blockid = $event->getBlock()->getId();
 			$blockmeta = $event->getBlock()->getDamage();
 			
-			if(array_key_exists($blockid, $this->main->relicBlocks))
+			if(array_key_exists($blockid, $this->plugin->relicBlocks))
 			{
-				$chance = $this->main->relicBlocks[ $blockid ];
-				$this->main->relic->foundRelic($event->getPlayer(), $chance);
+				$chance = $this->plugin->relicBlocks[ $blockid ];
+				$this->plugin->relic->foundRelic($event->getPlayer(), $chance);
 				Server::getInstance()->broadcastMessage("§l§7(§a!§7)§r§b". $event->getPlayer()->getName(). " §7Found an ancient Pocket Artifact!");
 			}
 			
@@ -131,15 +138,9 @@ class EventListener implements Listener{
 		}
 	}
 	
-	function onTap(BlockPlaceEvent $event) : void
+	function onPlace(BlockPlaceEvent $event) : void
 	{
-		$player = $event->getPlayer();
-		$item = $event->getItem();
-		if($item->getId() == 146 && $item->getDamage() == 69 && !$player->isCreative())
-		{
-			$this->main->relic->openRelic($player, $item);
-			$player->setItemInHand(Item::AIR);
-		}
+		//$player = $event->getPlayer();
     	}
 	
 	function onDeath(PlayerDeathEvent $ev) : void
