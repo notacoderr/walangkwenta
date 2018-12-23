@@ -75,7 +75,7 @@ class EventListener implements Listener{
 	if($item->getId() == 146 && $item->getDamage() == 69 && !$player->isCreative())
 	{
 		$this->plugin->relic->openRelic($player, $item);
-		$player->setItemInHand(Item::AIR);
+		$player->getInventory()->setItemInHand(Item::AIR);
 		$event->setCancelled();
 	}
     }
