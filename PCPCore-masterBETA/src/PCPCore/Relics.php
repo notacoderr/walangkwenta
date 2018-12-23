@@ -12,16 +12,17 @@ use pocketmine\inventory\Inventory;
 use pocketmine\utils\TextFormat as TF;
 
 class Relics {
+	
 	public $main;
   
-	construct __parent(Core $main)
+	public function __construct(Core $main)
 	{
 		$this->main = $main;
 	}
   
-  	public function foundRelic(Player $player) : bool
+  	public function foundRelic(Player $player, int $chance) : bool
   	{
-    		if($this->isLucky())
+    		if($this->isLucky($chance))
     		{
 			$relic = Item::get(146, 69, 1);
       			switch($this->getRandomRelic())
@@ -34,12 +35,12 @@ class Relics {
 				default:
 					return false;
       			}
-			$relic->setCustomName("§o§6Ancient Forgotten Relic"); //meh, fuck me
+			$relic->setCustomName("§o§6Ancient §7PocketRelic"); //meh, fuck me
 			if($player->getInventory()->canAddItem($relic))
 			{
 				$player->getInventory()->addItem($relic);
 			} else {
-				$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY(), $player->getZ()), $relic));
+				$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY(), $player->getZ()), $relic);
 			}
 			
 			return true;
@@ -70,12 +71,12 @@ class Relics {
 				$finalitem = $this->enchantItem($finalitem, $e[0], $e[1]);
 			}
 		}
-		$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY(), $player->getZ()), $finalitem));
+		$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY(), $player->getZ()), $finalitem);
 	}
   
-	private isLucky() : bool
+	private isLucky(int $chance) : bool
 	{
-		return (mt_rand(1, 10) <= 2);
+		return (mt_rand(1, 10) <= ($chance / 10));
 	}
   
 	private getRandomRelic() : string
