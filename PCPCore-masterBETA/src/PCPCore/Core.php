@@ -15,7 +15,6 @@ use PCPCore\tasks\{
 };
 
 use pocketmine\utils\{Config, TextFormat};
-use pocketmine\block\{Bedrock, BlockFactory, TNT};
 
 use pocketmine\item\Item;
 use pocketmine\Player;
@@ -24,15 +23,11 @@ use pocketmine\event\player\{
     PlayerLoginEvent, PlayerDeathEvent
 };
 
-use pocketmine\entity\{
-    Creature, Entity, Human
-};
-
 class Core extends PluginBase{
 
-    public const PERM_RANK = "§l§fP§bC§fP §8»§r §7You don't have permission to use this command!";
-	public const PERM_STAFF = "§l§fP§bC§fP §8»§r §7Only staff members can use this command!";
-	public const USE_IN_GAME = "§l§fP§bC§fP §8»§r §7Please use this command in-game!";
+    public const PERM_RANK = "§l§8(§c!§8)§r §7You don't have permission to use this command!";
+	public const PERM_STAFF = "§l§8(§c!§8)§r §7Only staff members can use this command!";
+	public const USE_IN_GAME = "§l§8(§c!§8)§r §7Please use this command in-game!";
 
 	public const MASK_DAMAGE_TO_NAME = [
 		3 => "Steve Mask",
@@ -47,112 +42,110 @@ class Core extends PluginBase{
 
 	public const MASK_DAMAGE_TO_LORE = [
 		3 => [
-				TextFormat::BOLD . TextFormat::LIGHT_PURPLE . "Steve Mask",
+				TextFormat::RESET . TextFormat::LIGHT_PURPLE . "Steve Mask",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "RARITY",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Common",
+				TextFormat::RESET . TextFormat::GREEN . "RARITY",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Common",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "ABILITY",
+				TextFormat::RESET . TextFormat::GREEN . "ABILITY",
 				"Amazing Abilities",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "EFFECT",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Discover these for yourself ^_^",
+				TextFormat::RESET . TextFormat::GREEN . "EFFECT",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Discover these for yourself ^_^",
 			],
 		4 => [
-				TextFormat::BOLD . TextFormat::LIGHT_PURPLE . "Creeper Mask",
+				TextFormat::RESET . TextFormat::LIGHT_PURPLE . "Creeper Mask",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "RARITY",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Rare",
+				TextFormat::RESET . TextFormat::GREEN . "RARITY",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Rare",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "ABILITY",
+				TextFormat::RESET . TextFormat::GREEN . "ABILITY",
 				"Look someone in the eye, and explode! And gain 5 extra health!",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "EFFECT",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Speed II",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Haste II",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Regeneration I",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Gain 5 extra health",
+				TextFormat::RESET . TextFormat::GREEN . "EFFECT",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Speed II",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Haste II",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Regeneration I",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Gain 5 extra health",
 			],
 		5 => [
-				TextFormat::BOLD . TextFormat::LIGHT_PURPLE . "Dragon Mask",
+				TextFormat::RESET . TextFormat::LIGHT_PURPLE . "Dragon Mask",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "RARITY",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Legendary",
+				TextFormat::RESET . TextFormat::GREEN . "RARITY",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Legendary",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "ABILITY",
+				TextFormat::RESET . TextFormat::GREEN . "ABILITY",
 				"Gain many effects",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "EFFECT",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Speed II",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Regeneration I",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Gain 20 extra health",
+				TextFormat::RESET . TextFormat::GREEN . "EFFECT",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Speed II",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Regeneration I",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Gain 20 extra health",
 			],
 		6 => [
-				TextFormat::BOLD . TextFormat::LIGHT_PURPLE . "Rabbit Mask",
+				TextFormat::RESET . TextFormat::LIGHT_PURPLE . "Rabbit Mask",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "RARITY",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Common",
+				TextFormat::RESET . TextFormat::GREEN . "RARITY",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Common",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "ABILITY",
+				TextFormat::RESET . TextFormat::GREEN . "ABILITY",
 				"Amazing Abilities",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "EFFECT",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Discover these for yourself ^_^",
+				TextFormat::RESET . TextFormat::GREEN . "EFFECT",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Discover these for yourself ^_^",
 			],
 		7 => [
-				TextFormat::BOLD . TextFormat::LIGHT_PURPLE . "Witch Mask",
+				TextFormat::RESET . TextFormat::LIGHT_PURPLE . "Witch Mask",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "RARITY",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Common",
+				TextFormat::RESET . TextFormat::GREEN . "RARITY",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Common",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "ABILITY",
+				TextFormat::RESET . TextFormat::GREEN . "ABILITY",
 				"Amazing Abilities",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "EFFECT",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Discover these for yourself ^_^",
+				TextFormat::RESET . TextFormat::GREEN . "EFFECT",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Discover these for yourself ^_^",
 			],
 		8 => [
-				TextFormat::BOLD . TextFormat::LIGHT_PURPLE . "Enderman Mask",
+				TextFormat::RESET . TextFormat::LIGHT_PURPLE . "Enderman Mask",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "RARITY",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Rare",
+				TextFormat::RESET . TextFormat::GREEN . "RARITY",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Rare",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "ABILITY",
+				TextFormat::RESET . TextFormat::GREEN . "ABILITY",
 				"Have a chance to look someone in the eye! And teleport!",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "EFFECT",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Speed II",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Haste II",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Night Vision II",
+				TextFormat::RESET . TextFormat::GREEN . "EFFECT",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Speed II",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Haste II",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Night Vision II",
 			],
 		9 => [
-				TextFormat::BOLD . TextFormat::LIGHT_PURPLE . "Chef Mask",
+				TextFormat::RESET . TextFormat::LIGHT_PURPLE . "Chef Mask",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "RARITY",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Common",
+				TextFormat::RESET . TextFormat::GREEN . "RARITY",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Common",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "ABILITY",
+				TextFormat::RESET . TextFormat::GREEN . "ABILITY",
 				"You will never go hungry again!",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "EFFECT",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Saturarion",
+				TextFormat::RESET . TextFormat::GREEN . "EFFECT",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Saturarion",
 			],
 		10 => [
-				TextFormat::BOLD . TextFormat::LIGHT_PURPLE . "Miner Mask",
+				TextFormat::RESET . TextFormat::LIGHT_PURPLE . "Miner Mask",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "RARITY",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Common",
+				TextFormat::RESET . TextFormat::GREEN . "RARITY",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Common",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "ABILITY",
+				TextFormat::RESET . TextFormat::GREEN . "ABILITY",
 				"Be able to mine like a drill!",
 				"",
-				TextFormat::BOLD . TextFormat::GREEN . "EFFECT",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Haste II",
-				TextFormat::BOLD . TextFormat::GREEN . " * " . TextFormat::RESET . "Speed I",
+				TextFormat::RESET . TextFormat::GREEN . "EFFECT",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Haste II",
+				TextFormat::RESET . TextFormat::GREEN . " * " . TextFormat::WHITE . "Speed I",
 			],
 	];
-
-	public static $TNT_timeouts = [];
 
     	/** @var null */
    	private static $instance = null;
