@@ -103,7 +103,7 @@ class EventListener implements Listener{
 				$chance = $this->plugin->relicBlocks[ $blockid ];
 				if($this->plugin->relic->foundRelic($event->getPlayer(), $chance))
 				{
-					Server::getInstance()->broadcastMessage("§l§7(§a!§7)§r§b". $event->getPlayer()->getName(). " §7Found an ancient Pocket Artifact!");
+					Server::getInstance()->broadcastMessage("§l§8(§b!§8)§r§b ". $event->getPlayer()->getName(). " §7Found An §dVoid §7Relic");
 				}
 			}
 			
