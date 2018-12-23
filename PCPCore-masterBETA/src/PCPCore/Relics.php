@@ -12,6 +12,8 @@ use pocketmine\inventory\Inventory;
 use pocketmine\utils\TextFormat as TF;
 use pocketmine\item\enchantment\{Enchantment, EnchantmentInstance};
 
+use pocketmine\command\ConsoleCommandSender;
+
 class Relics {
 	
 	public $main;
@@ -51,10 +53,12 @@ class Relics {
 	public function openRelic(Player $player, Item $item) : void
 	{
 		$datas = $this->main->relics;
-		$itemLore = $item->getlore();
-      	 	$lore = (string) TF::clean( $itemLore[0] ); //clean the relic's tier
 		$items = (array) $datas->getNested("contains." . $lore . ".items"); //get array of items
 		$cmds = (array) $datas->getNested("contains." . $lore . ".cmd"); //get array of commands
+		
+		//ITEM
+		$itemLore = $item->getlore();
+      	 	$lore = (string) TF::clean( $itemLore[0] ); //clean the relic's tier
 		shuffle($items); //this'll shuffle the item array
 		$item = $items[0]; //pick the first one in the array
 		$cache = explode("---", $item); //separates item data and enchantments
@@ -72,6 +76,15 @@ class Relics {
 			}
 		}
 		$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY(), $player->getZ()), $finalitem);
+		
+		//COMMANDS
+		if(count($cmds) >=1)
+		{
+			shuffle($cmds);
+			$command = $cmds[0];
+			$command = str_replace("%player&", (string) '"'. $player->getName(). '"', $command);
+			Server::getInstance()->dispatchCommand(new ConsoleCommandSender(), $command);
+		}
 	}
   
 	private function isLucky(int $chance) : bool
