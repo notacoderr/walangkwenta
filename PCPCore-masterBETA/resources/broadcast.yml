@@ -3,8 +3,9 @@
 
 # Variables for messages above:
 # & - Use for color coding messages
-# {MAX_PLAYERS} - Gets servers max players limit
-# {ONLINE} - Gets servers online players count
+# {max_players} - Gets servers max players limit
+# {online} - Gets servers online players count
+# {player} - Gets the player
 
 # Seconds between each broadcasted message
 seconds: 300
