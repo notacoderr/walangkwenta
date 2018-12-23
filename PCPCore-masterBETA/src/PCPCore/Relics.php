@@ -28,7 +28,8 @@ class Relics {
     		if($this->isLucky($chance))
     		{
 			$relic = Item::get(450, 69, 1);
-      			switch($this->getRandomRelic())
+			$tier = $this->getRandomRelic();
+      			switch($tier)
       			{
 				case "Tier I": $relic->setLore([ TF::BOLD. TF::AQUA. "Tier I", TF::RESET. TF::WHITE. "Tap anywhere to open!" ]); break;
 				case "Tier II": $relic->setLore([ TF::BOLD. TF::YELLOW. "Tier II", TF::RESET. TF::WHITE. "Tap anywhere to open!" ]); break;
@@ -38,16 +39,17 @@ class Relics {
 				default:
 					return false;
       			}
-			$relic->setCustomName("§r§dAncient §7Pocket Relic"); //meh, fuck me
+			$relic->setCustomName("§r§dVoid §7PocketRelic"); //meh, fuck me
 			/*if($player->getInventory()->canAddItem($relic))
 			{
 				$player->getInventory()->addItem($relic);
 			} else {
 				$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY() + 0.05, $player->getZ()), $relic);
 			}*/
+			Server::getInstance()->broadcastMessage("§l§8(§b!§8)§r§b ". $player->getName(). " §7Found an §dVoid §7PocketRelic : §c". $tier);
 			return $relic;
     		}
-		return;
+		return false;
   	}
   
 	public function openRelic(Player $player, Item $item) : void
