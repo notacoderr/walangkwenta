@@ -101,8 +101,10 @@ class EventListener implements Listener{
 			if(array_key_exists($blockid, $this->plugin->relicBlocks))
 			{
 				$chance = $this->plugin->relicBlocks[ $blockid ];
-				$this->plugin->relic->foundRelic($event->getPlayer(), $chance);
-				Server::getInstance()->broadcastMessage("§l§7(§a!§7)§r§b". $event->getPlayer()->getName(). " §7Found an ancient Pocket Artifact!");
+				if($this->plugin->relic->foundRelic($event->getPlayer(), $chance))
+				{
+					Server::getInstance()->broadcastMessage("§l§7(§a!§7)§r§b". $event->getPlayer()->getName(). " §7Found an ancient Pocket Artifact!");
+				}
 			}
 			
 			if(array_key_exists($blockid. "-". $blockmeta, $this->plugin->premyo->getNested("breakmoney")))
