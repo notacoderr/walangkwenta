@@ -16,27 +16,44 @@ contains:
     items:
       # "CustomName : itemID : itemMeta : Amount---EnchantmentID*Level"
       # notice the spaces and lines, these are important
-      - "Adaptive Helm : 310 : 0 : 1---0*1 : 1*2" #protect I and fire protection 2
-      - "Demons Advent : 311 : 0 : 1---5*1 : 1*5" #thorns I and fire protection 5
-      - "No enchantment Item : 311 : 0 : 1---" #no enchantment
+      - "Silver Helm : 306 : 0 : 1---0*1 : 1*2" #protect I and fire protection 2
+      - "Frostfield Plate : 307 : 0 : 1---5*1 : 1*5" #thorns I and fire protection 5
+      - "Doran's Blade : 272 : 0 : 1---" #no enchantment
     cmd:
       - "givemoney %player% 20"
+      - "tell %player% Better Luck Next Time :P"
     
   Tier II:
-    items: []
-    cmd: []
+    items:
+      - "Rapid Boots : 309 : 0 : 1---0*1 : 1*1"
+      - "Quick Blade : 272 : 0 : 1---9*12 : 1*1"
+    cmd:
+      - "givemoney %player% 3200"
+      - "tell %player% Better Luck Next Time :P"
     
   Tier III:
-    items: []
-    cmd: []
-    
+    items:
+      - "Teleport Glyph : 368 : 0 : 5---"
+      - "Ancient Leggings : 316 : 0 : 1---0*1 : 2*1"
+    cmd:
+      - "givemoney %player% 100"
+      - "tell %player% Bleehh :P"
+      
   Tier IV:
-    items: []
-    cmd: []
+    items:
+      - "The Bloodthirster : 276 : 0 : 1---9*12 : 10*10"
+      - "Demon's Advent : 311 : 0 : 1---0*1 : 3*3"
+    cmd:
+      - "givemoney %player% 100"
+      - "tell %player% Bleehh :P"
     
   Tier V:
-    items: []
-    cmd: []
+    items:
+      - "Practice Sword : 268 : 0 : 1---9*12 : 5*5"
+      - "Modern Leggings : 312 : 0 : 1---0*1 : 2*1"
+    cmd:
+      - "givemoney %player% 100"
+      - "tell %player% Bleehh :P"
 
 #im too lazy to add conversion, plus this saves us milliseconds
 ## PMMP Encht ID ## 
