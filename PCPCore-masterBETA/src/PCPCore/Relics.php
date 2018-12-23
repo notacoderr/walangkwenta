@@ -38,7 +38,7 @@ class Relics {
 				default:
 					return false;
       			}
-			$relic->setCustomName("§o§7Ancient §bPocket§fRelic"); //meh, fuck me
+			$relic->setCustomName("§r§dVoid §7Relic"); //meh, fuck me
 			if($player->getInventory()->canAddItem($relic))
 			{
 				$player->getInventory()->addItem($relic);
