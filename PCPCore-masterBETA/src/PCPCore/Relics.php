@@ -26,15 +26,15 @@ class Relics {
 			$relic = Item::get(146, 69, 1);
       			switch($this->getRandomRelic())
       			{
-				case "tier i": $relic->setLore([ TF::AQUA. "Tier I" ]); break;
-				case "tier ii": $relic->setLore([ TF::YELLOW. "Tier II" ]); break;
-				case "tier iii": $relic->setLore([ TF::PURPLE. "Tier III" ]); break;
-				case "tier iv": $relic->setLore([ TF::DARK_PURPLE. "Tier IV" ]); break;
-				case "tier v": $relic->setLore([ TF::BLACK. "Tier V" ]); break;
+				case "tier i": $relic->setLore([ TF::AQUA. "Tier I", TF::WHITE. "Smash anywhere to open!" ]); break;
+				case "tier ii": $relic->setLore([ TF::YELLOW. "Tier II", TF::WHITE. "Smash anywhere to open!" ]); break;
+				case "tier iii": $relic->setLore([ TF::PURPLE. "Tier III", TF::WHITE. "Smash anywhere to open!" ]); break;
+				case "tier iv": $relic->setLore([ TF::DARK_PURPLE. "Tier IV", TF::WHITE. "Smash anywhere to open!" ]); break;
+				case "tier v": $relic->setLore([ TF::BLACK. "Tier V", TF::WHITE. "Smash anywhere to open!" ]); break;
 				default:
 					return false;
       			}
-			
+			$relic->setCustomName("§o§6Ancient Forgotten Relic"); //meh, fuck me
 			if($player->getInventory()->canAddItem($relic))
 			{
 				$player->getInventory()->addItem($relic);
