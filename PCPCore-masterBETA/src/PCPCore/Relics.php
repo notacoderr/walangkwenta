@@ -39,14 +39,8 @@ class Relics {
 				default:
 					return false;
       			}
-			$relic->setCustomName("§r§dVoid §7PocketRelic"); //meh, fuck me
-			/*if($player->getInventory()->canAddItem($relic))
-			{
-				$player->getInventory()->addItem($relic);
-			} else {
-				$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY() + 0.05, $player->getZ()), $relic);
-			}*/
-			Server::getInstance()->broadcastMessage("§l§8(§b!§8)§r§b ". $player->getName(). " §7Found an §dVoid §7PocketRelic : §c". $tier);
+			$relic->setCustomName("§o§dVoid §7PocketRelic");
+			Server::getInstance()->broadcastMessage("§l§8(§b!§8)§r§b ". $player->getName(). " §7Found a §dVoid §7PocketRelic : §c". $tier);
 			return $relic;
     		}
 		return false;
@@ -77,7 +71,7 @@ class Relics {
 				$finalitem = $this->enchantItem($finalitem, $e[0], $e[1]);
 			}
 		}
-		$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY(), $player->getZ()), $finalitem);
+		$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY() + 0.69, $player->getZ()), $finalitem);
 		
 		//COMMANDS
 		if(count($cmds) >=1)
@@ -91,7 +85,7 @@ class Relics {
   
 	private function isLucky(int $chance) : bool
 	{
-		return (mt_rand(1, 10) <= ($chance / 10));
+		return (mt_rand(5, 100) <= $chance);
 	}
   
 	private function getRandomRelic() : string
