@@ -1,15 +1,21 @@
-#must be total of 100 only
+##must be total of 100 only
 relics-drop-rate:
   Tier I: 30
   Tier II: 28
   Tier III: 23
   Tier IV: 12
   Tier V: 7
-
+##
 contains:
   Tier I:
-    items: []
-    cmd: []
+    items:
+      # "CustomName : itemID : itemMeta : Amount---EnchantmentID*Level"
+      # notice the spaces and lines, these are important
+      - "Adaptive Helm : 310 : 0 : 1---0*1 : 1*2" #protect I and fire protection 2
+      - "Demons Advent : 311 : 0 : 1---5*1 : 1*5" #thorns I and fire protection 5
+      - "No enchantment Item : 311 : 0 : 1---" #no enchantment
+    cmd:
+      - "givemoney %player% 20"
     
   Tier II:
     items: []
@@ -26,3 +32,40 @@ contains:
   Tier V:
     items: []
     cmd: []
+
+#im too lazy to add conversion, plus this saves us milliseconds
+## PMMP Encht ID ## 
+# PROTECTION = 0;
+# FIRE_PROTECTION = 1;
+# FEATHER_FALLING = 2;
+# BLAST_PROTECTION = 3;
+# PROJECTILE_PROTECTION = 4;
+# THORNS = 5;
+# RESPIRATION = 6;
+# DEPTH_STRIDER = 7;
+# AQUA_AFFINITY = 8;
+# SHARPNESS = 9;
+# SMITE = 10;
+# BANE_OF_ARTHROPODS = 11;
+# KNOCKBACK = 12;
+# FIRE_ASPECT = 13;
+# LOOTING = 14;
+# EFFICIENCY = 15;
+# SILK_TOUCH = 16;
+# UNBREAKING = 17;
+# FORTUNE = 18;
+# POWER = 19;
+# PUNCH = 20;
+# FLAME = 21;
+# INFINITY = 22;
+# LUCK_OF_THE_SEA = 23;
+# LURE = 24;
+# FROST_WALKER = 25;
+# MENDING = 26;
+# BINDING = 27;
+# VANISHING = 28;
+# IMPALING = 29;
+# RIPTIDE = 30;
+# LOYALTY = 31;
+# CHANNELING = 32;
+## END OF PMMP ENCHANTMENT IDs ##
