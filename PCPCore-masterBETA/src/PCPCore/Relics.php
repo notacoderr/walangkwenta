@@ -39,7 +39,7 @@ class Relics {
 				default:
 					return false;
       			}
-			$relic->setCustomName("§o§dVoid §7PocketRelic");
+			$relic->setCustomName("§o§dVoid §7PocketRelic : §c". $tier);
 			Server::getInstance()->broadcastMessage("§l§8(§b!§8)§r§b ". $player->getName(). " §7Found a §dVoid §7PocketRelic : §c". $tier);
 			return $relic;
     		}
@@ -71,14 +71,15 @@ class Relics {
 				$finalitem = $this->enchantItem($finalitem, $e[0], $e[1]);
 			}
 		}
-		$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY() + 0.69, $player->getZ()), $finalitem);
+		$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY() + 0.75, $player->getZ()), $finalitem);
 		
 		//COMMANDS
+		
 		if(count($cmds) >=1)
 		{
 			shuffle($cmds);
 			$command = $cmds[0];
-			$command = str_replace("%player&", (string) '"'. $player->getName(). '"', $command);
+			$command = str_replace("%player%", '"'. $player->getName(). '"', $command);
 			Server::getInstance()->dispatchCommand(new ConsoleCommandSender(), $command);
 		}
 	}
@@ -112,12 +113,18 @@ class Relics {
 	
 	private function enchantItem(Item $item, int $e, int $lvl) : Item
 	{
-		if($e >= 100)
-		{
-			//custom ench
-		} else {
-			$item->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment($e), $lvl));
-		}		
+		try{
+			if($e >= 100)
+			{
+				//custom ench
+			}
+			if($e <= 32 && $e >= 0)
+			{
+				$item->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment($e), $lvl));
+			}
+		}catch(\ErrorException $exception){
+
+		}
 		return $item;
 	}
 }
