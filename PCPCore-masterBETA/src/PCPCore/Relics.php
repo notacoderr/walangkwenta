@@ -62,9 +62,9 @@ class Relics {
 		$finalitem = Item::get($itemdata[1], $itemdata[2]); //id & meta
 		$finalitem->setCount($itemdata[3]); //count
 		$finalitem->setCustomName("$itemdata[0]"); //custom name
-		$ench = explode(" : ", $cache[1]); //item enchantments
-		if(count($ench) > 0)
+		if(strlen($cache[1]) > 2)
 		{
+			$ench = explode(" : ", $cache[1]); //item enchantments
 			foreach($ench as $enchantment)
 			{
 				$e = explode("*", $enchantment);
