@@ -18,7 +18,6 @@ use pocketmine\event\player\{
 
 use pocketmine\event\block\{BlockBreakEvent, BlockPlaceEvent};
 
-use pocketmine\item\Item;
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\scheduler\Task;
@@ -70,12 +69,10 @@ class EventListener implements Listener{
 		$player->getInventory()->addItem($item);
 		$player->addTitle(TextFormat::GREEN . TextFormat::BOLD . "Obtained", TextFormat::YELLOW . Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
         }
-	    
-	//$item = $event->getItemHand();
+
 	if($item->getId() == 450 && $item->getDamage() == 69 && !$player->isCreative())
 	{
 		$this->plugin->relic->openRelic($player, $item);
-		//$player->getInventory()->remove(Item::get(450, 69, 1));
 		$player->getInventory()->setItemInHand(Item::get(0));
 	}
     }
@@ -104,8 +101,8 @@ class EventListener implements Listener{
 				$relic = $this->plugin->relic->foundRelic($event->getPlayer(), $chance);
 				if($relic instanceof Item)
 				{
-					$arr = $event->getDrops;
-					$arr = array_push($arr, $relic);
+					$arr = $event->getDrops();
+					array_push($arr, $relic);
 					$event->setDrops($arr);
 				}
 			}
@@ -145,7 +142,6 @@ class EventListener implements Listener{
 	
 	function onPlace(BlockPlaceEvent $event) : void
 	{
-		//$player = $event->getPlayer();
     	}
 	
 	function onDeath(PlayerDeathEvent $ev) : void
