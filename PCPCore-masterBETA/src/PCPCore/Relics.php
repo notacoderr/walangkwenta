@@ -53,12 +53,12 @@ class Relics {
 	public function openRelic(Player $player, Item $item) : void
 	{
 		$datas = $this->main->relics;
+		$itemLore = $item->getlore();
+      	 	$lore = (string) TF::clean( $itemLore[0] ); //clean the relic's tier
 		$items = (array) $datas->getNested("contains." . $lore . ".items"); //get array of items
 		$cmds = (array) $datas->getNested("contains." . $lore . ".cmd"); //get array of commands
 		
 		//ITEM
-		$itemLore = $item->getlore();
-      	 	$lore = (string) TF::clean( $itemLore[0] ); //clean the relic's tier
 		shuffle($items); //this'll shuffle the item array
 		$item = $items[0]; //pick the first one in the array
 		$cache = explode("---", $item); //separates item data and enchantments
