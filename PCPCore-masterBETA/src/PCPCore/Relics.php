@@ -24,7 +24,7 @@ class Relics {
     		if($this->isLucky())
     		{
 			$relic = Item::get(146, 69, 1);
-      			switch( strtolower($this->getRandomRelic()) )
+      			switch($this->getRandomRelic())
       			{
 				case "tier i": $relic->setLore([ TF::AQUA. "Tier I" ]); break;
 				case "tier ii": $relic->setLore([ TF::YELLOW. "Tier II" ]); break;
@@ -49,10 +49,28 @@ class Relics {
   
 	public function openRelic(Player $player, Item $item) : void
 	{
+		$datas = $this->main->relics;
 		$itemLore = $item->getlore();
-      	 	$itemLevel = (string) TF::clean( $itemLore[0] );
-		
-		//soon.. will give player (a) random item(s) from it's respective rarity
+      	 	$lore = (string) TF::clean( $itemLore[0] ); //clean the relic's tier
+		$items = (array) $datas->getNested("contains." . $lore . ".items"); //get array of items
+		$cmds = (array) $datas->getNested("contains." . $lore . ".cmd"); //get array of commands
+		shuffle($items); //this'll shuffle the item array
+		$item = $items[0]; //pick the first one in the array
+		$i = explode("---", $item); //separates item data and enchantments
+		$itemdata = explode(" : ", $i[0]); //item data
+		$finalitem = Item::get($itemdata[1], $itemdata[2]); //id & meta
+		$finalitem->setCount($itemdata[3]); //count
+		$finalitem->setCustomName("$itemdata[0]"); //custom name
+		$ench = explode(" : ", $i[1]); //item enchantments
+		if(count($ench) > 0)
+		{
+			foreach($ench as $enchantment)
+			{
+				$e = explode("*", $enchantment);
+				$finalitem = $this->enchantItem($finalitem, $e[0], $e[1]);
+			}
+		}
+		$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY(), $player->getZ()), $finalitem));
 	}
   
 	private isLucky() : bool
@@ -81,4 +99,15 @@ class Relics {
       			}
     		}
   	}
+	
+	private enchantItem(Item $item, int $e, int $lvl) : Item
+	{
+		if($e >= 100)
+		{
+			//custom ench
+		} else {
+			$item->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment($e), $lvl));
+		}		
+		return $item;
+	}
 }
