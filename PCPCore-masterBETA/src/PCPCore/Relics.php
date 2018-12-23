@@ -10,6 +10,7 @@ use pocketmine\item\Item;
 use pocketmine\math\Vector3;
 use pocketmine\inventory\Inventory;
 use pocketmine\utils\TextFormat as TF;
+use pocketmine\item\enchantment\{Enchantment, EnchantmentInstance};
 
 class Relics {
 	
