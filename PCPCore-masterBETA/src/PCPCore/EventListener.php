@@ -90,7 +90,7 @@ class EventListener implements Listener{
 
 	function onBreak(BlockBreakEvent $event) : void
 	{
-		if (! $event->getPlayer()->isCreative())
+		if ((!$event->getPlayer()->isCreative()) and (!$event->isCancelled()))
 		{
 			$blockid = $event->getBlock()->getId();
 			$blockmeta = $event->getBlock()->getDamage();
