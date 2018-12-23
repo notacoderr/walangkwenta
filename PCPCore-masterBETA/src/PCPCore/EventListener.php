@@ -26,6 +26,7 @@ use pocketmine\entity\Entity;
 
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\enchantment\EnchantmentInstance;
+use pocketmine\item\Item;
 use pocketmine\block\Block;
 use pocketmine\utils\Random;
 
@@ -100,9 +101,12 @@ class EventListener implements Listener{
 			if(array_key_exists($blockid, $this->plugin->relicBlocks))
 			{
 				$chance = $this->plugin->relicBlocks[ $blockid ];
-				if($this->plugin->relic->foundRelic($event->getPlayer(), $chance))
+				$relic = $this->plugin->relic->foundRelic($event->getPlayer(), $chance);
+				if($relic instanceof Item)
 				{
-					Server::getInstance()->broadcastMessage("§l§8(§b!§8)§r§b ". $event->getPlayer()->getName(). " §7Found An §dVoid §7Relic");
+					$arr = $event->getDrops;
+					$arr = array_push($arr, $relic);
+					$event->setDrops($arr);
 				}
 			}
 			
