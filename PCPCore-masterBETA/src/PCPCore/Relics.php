@@ -74,12 +74,12 @@ class Relics {
 		$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY(), $player->getZ()), $finalitem);
 	}
   
-	private isLucky(int $chance) : bool
+	private function isLucky(int $chance) : bool
 	{
 		return (mt_rand(1, 10) <= ($chance / 10));
 	}
   
-	private getRandomRelic() : string
+	private function getRandomRelic() : string
 	{
 		$relics = (array) $this->main->relics->getNested("relics-drop-rate");
 		$sum = (int) array_sum($relics);
@@ -101,7 +101,7 @@ class Relics {
     		}
   	}
 	
-	private enchantItem(Item $item, int $e, int $lvl) : Item
+	private function enchantItem(Item $item, int $e, int $lvl) : Item
 	{
 		if($e >= 100)
 		{
