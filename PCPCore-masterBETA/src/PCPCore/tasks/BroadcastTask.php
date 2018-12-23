@@ -6,14 +6,16 @@ namespace PCPCore\tasks;
 
 use PCPCore\Core;
 use pocketmine\scheduler\Task;
+use pocketmine\Player;
 
 class BroadcastTask extends Task{
     
     /** @var Core */
     private $plugin;
 
-    public function __construct(Core $plugin){
+    public function __construct(Core $plugin, Player $player){
         $this->plugin = $plugin;
+        $this->player = $player;
     }
     
     public function onRun(int $currentTick){
@@ -21,8 +23,9 @@ class BroadcastTask extends Task{
         $messages = $messages[array_rand($messages)];
         $message = "$messages";
         $message = str_replace("&", "§", $message);
-        $message = str_replace("{MAX_PLAYERS}", $this->plugin->getServer()->getMaxPlayers(), $message);
-        $message = str_replace("{ONLINE}", count($this->plugin->getServer()->getOnlinePlayers()), $message);
+        $message = str_replace("{max_players}", $this->plugin->getServer()->getMaxPlayers(), $message);
+        $message = str_replace("{online}", count($this->plugin->getServer()->getOnlinePlayers()), $message);
+        $message = str_replace("{player}", $this->plugin->player->getName(), $message);
         $this->plugin->getServer()->broadcastMessage($message);
     }
 }
