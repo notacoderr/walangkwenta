@@ -1,7 +1,7 @@
 chance-from:
   #id: #chance percentage out of 100
-  1: 15 #stone 
-  49: 80 #obsidian
+  1: 19 #stone: 19%
+  49: 73 #obsidian
 
 ##must be total of 100 only
 relics-drop-rate:
@@ -10,6 +10,7 @@ relics-drop-rate:
   Tier III: 23
   Tier IV: 12
   Tier V: 7
+
 ##
 contains:
   Tier I:
@@ -19,6 +20,7 @@ contains:
       - "Silver Helm : 306 : 0 : 1---0*1 : 1*2" #protect I and fire protection 2
       - "Frostfield Plate : 307 : 0 : 1---5*1 : 1*5" #thorns I and fire protection 5
       - "Doran's Blade : 272 : 0 : 1---" #no enchantment
+      - "Stack of Sticks : 280 : 0 : 64---"
     cmd:
       - "givemoney %player% 20"
       - "tell %player% Better Luck Next Time :P"
@@ -41,6 +43,7 @@ contains:
       
   Tier IV:
     items:
+      - "The Archaeologist's Pickaxe : 278 : 0 : 1---18*3 : 16*1"
       - "The Bloodthirster : 276 : 0 : 1---9*12 : 10*10"
       - "Demon's Advent : 311 : 0 : 1---0*1 : 3*3"
     cmd:
@@ -51,6 +54,9 @@ contains:
     items:
       - "Practice Sword : 268 : 0 : 1---9*12 : 5*5"
       - "Modern Leggings : 312 : 0 : 1---0*1 : 2*1"
+      - "§oSilver Emperor's Plate : 306 : 0 : 1---0*2 : 1*5 : 17*1 : 4*2"
+      - "§oSilver Emperor's Helm : 307 : 0 : 1---0*2 : 1*5 : 17*1 : 4*1"
+      
     cmd:
       - "givemoney %player% 100"
       - "tell %player% Bleehh :P"
