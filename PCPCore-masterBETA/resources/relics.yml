@@ -1,10 +1,10 @@
 ##must be total of 100 only
 relics-drop-rate:
-  "Tier I": 30
-  "Tier II": 28
-  "Tier III": 23
-  "Tier IV": 12
-  "Tier V": 7
+  Tier I: 30
+  Tier II: 28
+  Tier III: 23
+  Tier IV: 12
+  Tier V: 7
 ##
 contains:
   Tier I:
