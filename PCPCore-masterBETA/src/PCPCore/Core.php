@@ -154,12 +154,11 @@ class Core extends PluginBase{
 
 	public static $TNT_timeouts = [];
 
-    /** @var null */
-    private static $instance = null;
-    /** @var int[] */
-    public $chat = [];
-    /** @var Config */
-    public $config, $settings, $getRelics;
+    	/** @var null */
+   	private static $instance = null;
+	
+   	 /** @var Config */
+    	public $config, $settings, $getRelics, $relicBlocks = [], $chat = [];
 
     public static function getInstance() : self{
         return self::$instance;
@@ -193,6 +192,11 @@ class Core extends PluginBase{
 	$this->premyo = new Config($this->getDataFolder() . "premyo.yml", Config::YAML);
 	$this->saveResource("relics.yml");
 	$this->relics = new Config($this->getDataFolder() . "relics.yml", Config::YAML);
+	    
+	foreach($this->relics->getNested("chance-from") as $id => $chance)
+	{
+		$this->relicBlocks[ $id ] = $chance; 
+	}
 
         if(is_numeric($this->settings->get("seconds"))){
             $this->getScheduler()->scheduleRepeatingTask(new BroadcastTask($this), $this->settings->get("seconds") * 20);
