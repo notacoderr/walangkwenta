@@ -27,7 +27,7 @@ class Relics {
   	{
     		if($this->isLucky($chance))
     		{
-			$relic = Item::get(146, 69, 1);
+			$relic = Item::get(449, 69, 1);
       			switch($this->getRandomRelic())
       			{
 				case "Tier I": $relic->setLore([ TF::AQUA. "Tier I", TF::WHITE. "Smash anywhere to open!" ]); break;
@@ -38,7 +38,7 @@ class Relics {
 				default:
 					return false;
       			}
-			$relic->setCustomName("§r§dVoid §7Relic"); //meh, fuck me
+			$relic->setCustomName("§r§dPocket§7Relic"); //meh, fuck me
 			if($player->getInventory()->canAddItem($relic))
 			{
 				$player->getInventory()->addItem($relic);
