@@ -107,7 +107,7 @@ class Relics {
 		{
 			//custom ench
 		} else {
-			//$item->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment($e), $lvl));
+			$item->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment($e), $lvl));
 		}		
 		return $item;
 	}
