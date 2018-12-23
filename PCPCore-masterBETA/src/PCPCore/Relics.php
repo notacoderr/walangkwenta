@@ -111,20 +111,22 @@ class Relics {
     		}
   	}
 	
-	private function enchantItem(Item $item, int $e, int $lvl) : Item
+	private function enchantItem(Item $item, int $enchId, int $lvl) : Item
 	{
-		try{
-			if($e >= 100)
-			{
-				//custom ench
-			}
-			if($e <= 32 && $e >= 0)
-			{
-				$item->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment($e), $lvl));
-			}
-		}catch(\ErrorException $exception){
-
+		if($enchId >= 100)
+		{
+			//custom ench
 		}
+
+		if($enchId <= 32 && $enchId >= 0)
+		{
+			$enchantment = Enchantment::getEnchantment($enchId);
+			if($enchantment instanceof Enchantment)
+			{
+				$item->addEnchantment( new EnchantmentInstance($enchantment, $lvl) );
+			}
+		}
+
 		return $item;
 	}
 }
