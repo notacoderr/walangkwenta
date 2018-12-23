@@ -90,30 +90,12 @@ class EventListener implements Listener{
 		{
 			$blockid = $event->getBlock()->getId();
 			$blockmeta = $event->getBlock()->getDamage();
-			//This is for special stuffs like Relics
-			switch( $blockid )
+			
+			if(array_key_exists($blockid, $this->main->relicBlocks))
 			{
-				case 1:
-					$this->main->relic->foundRelic($event->getPlayer());
-					Server::getInstance()->broadcastMessage("§l§7(§a!§7)§r§b". $event->getPlayer()->getName(). " §7Found an ancient Pocket Artifact!");
-					/*if(mt_rand(1, 10) <= 2)
-					{
-						     $name = $event->getPlayer()->getName();
-						     $relic = Item::get(54, 101, 1);
-						     $relic->setCustomName(TF::RESET . TF::WHITE . "Pocket" . TF::AQUA . " Artifact");
-						     $event->getPlayer()->getInventory()->addItem($relic);
-						
-						     Server::getInstance()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Pocket Artifact!");
-					}*/
-				break;
-				/*
-				case 4: id ata ng cobblestone
-					if(mt_rand(1, 10) <= 4)
-					{
-						
-					}
-				break;
-				*/
+				$chance = $this->main->relicBlocks[ $blockid ];
+				$this->main->relic->foundRelic($event->getPlayer(), $chance);
+				Server::getInstance()->broadcastMessage("§l§7(§a!§7)§r§b". $event->getPlayer()->getName(). " §7Found an ancient Pocket Artifact!");
 			}
 			
 			if(array_key_exists($blockid. "-". $blockmeta, $this->plugin->premyo->getNested("breakmoney")))
@@ -149,69 +131,16 @@ class EventListener implements Listener{
 		}
 	}
 	
-	function onTap(BlockPlaceEvent $event){
-	$player = $event->getPlayer();
-        $item = $event->getItem();
-	if($item->getId() == 146 && $item->getDamage() == 69 && !$player->isCreative())
+	function onTap(BlockPlaceEvent $event) : void
 	{
-		$this->main->relic->openRelic($player, $item);
-		$player->setItemInHand(Item::AIR);
-	}
-        /*$prot = Enchantment::getEnchantment(0);
-        $unb = Enchantment::getEnchantment(17);
-        $sharp = Enchantment::getEnchantment(9);
-        $eff = Enchantment::getEnchantment(15);
-        $kb = Enchantment::getEnchantment(12);
-        $loot = Enchantment::getEnchantment(14);
-        $fire = Enchantment::getEnchantment(13);
-        $resp = Enchantment::getEnchantment(6);
-        switch($damage) {
-            case "101":
-            $relic = Item::get(54, 101, 1);
-            $item1 = Item::get(310, 0, 1);
-            $item1->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Adaptive" . TF::GRAY . " Helm");
-            $item1->addEnchantment(new EnchantmentInstance($prot, 3));
-            $item1->addEnchantment(new EnchantmentInstance($unb, 3));
-            $item2 = Item::get(311, 0, 1);
-            $item2->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Demons" . TF::GRAY . " Advent");
-            $item2->addEnchantment(new EnchantmentInstance($prot, 3));
-            $item2->addEnchantment(new EnchantmentInstance($unb, 3));
-            $item3 = Item::get(312, 0, 1);
-            $item3->setCustomName(TF::RESET . TF::LIGHT_PURPLE . "Ancient" . TF::GRAY . " Leggings");
-            $item3->addEnchantment(new EnchantmentInstance($prot, 3));
-            $item3->addEnchantment(new EnchantmentInstance($unb, 3));
-            $item4 = Item::get(313, 0, 1);
-            $item4->setCustomName(TF::RESET . TF::RED . "Rapid" . TF::GRAY . " Boots");
-            $item4->addEnchantment(new EnchantmentInstance($prot, 3));
-            $item4->addEnchantment(new EnchantmentInstance($unb, 3));
-            $sword = Item::get(276, 0, 1);
-            $sword->setCustomName(TF::RESET . TF::RED . "Flaming" . TF::GRAY . " Sword");
-            $sword->addEnchantment(new EnchantmentInstance($sharp, 3));
-            $sword->addEnchantment(new EnchantmentInstance($unb, 3));
-	    $sword1 = Item::get(276, 0, 1);
-            $sword1->setCustomName(TF::RESET . TF::RED . "The Bloodthirster");
-            $sword1->addEnchantment(new EnchantmentInstance($sharp, 3));
-            $sword1->addEnchantment(new EnchantmentInstance($unb, 3));
-            $pickaxe = Item::get(278, 0, 1);
-            $pickaxe->setCustomName(TF::RESET . TF::RED . "Giga" . TF::GRAY . " Drill");
-            $pickaxe->addEnchantment(new EnchantmentInstance($eff, 3));
-            $pickaxe->addEnchantment(new EnchantmentInstance($unb, 3));
-            $axe = Item::get(279, 0, 1);
-            $axe->setCustomName(TF::RESET . TF::RED . "Pyro" . TF::GRAY . " Axe");
-            $axe->addEnchantment(new EnchantmentInstance($eff, 3));
-            $axe->addEnchantment(new EnchantmentInstance($unb, 3));
-            $diamond = Item::get(264, 0, 64);
-            $iron = Item::get(265, 0, 256);
-            $gold = Item::get(266, 0, 128);
-            $tobegiven1 = [$item1, $item2, $item3, $item4, $sword, $pickaxe, $axe, $diamond, $iron, $gold, $sword1]; //array1
-            $rand1 = mt_rand(0, 11);
-            $player->getInventory()->addItem($tobegiven1[$rand1]);
-            $player->sendMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::GRAY . " Opening Artifact...");
-            $event->setCancelled();
-            $player->getInventory()->removeItem($relic);
-            break;
-	}*/
-    }
+		$player = $event->getPlayer();
+		$item = $event->getItem();
+		if($item->getId() == 146 && $item->getDamage() == 69 && !$player->isCreative())
+		{
+			$this->main->relic->openRelic($player, $item);
+			$player->setItemInHand(Item::AIR);
+		}
+    	}
 	
 	function onDeath(PlayerDeathEvent $ev) : void
 	{
