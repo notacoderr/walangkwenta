@@ -88,31 +88,35 @@ class EventListener implements Listener{
         }
     }
 
-	function onBreak(BlockBreakEvent $event) : void
+	public function onBreak(BlockBreakEvent $event) : void
 	{
-		if ((!$event->getPlayer()->isCreative()) and (!$event->isCancelled()))
+		if($event->isCancelled() == false) //not done yet, 
 		{
-			$blockid = $event->getBlock()->getId();
-			$blockmeta = $event->getBlock()->getDamage();
-			
-			if(array_key_exists($blockid, $this->plugin->relicBlocks))
+			var_dump($event->isCancelled());
+			if (!$event->getPlayer()->isCreative())
 			{
-				$chance = $this->plugin->relicBlocks[ $blockid ];
-				$relic = $this->plugin->relic->foundRelic($event->getPlayer(), $chance);
-				if($relic instanceof Item)
+				$blockid = $event->getBlock()->getId();
+				$blockmeta = $event->getBlock()->getDamage();
+				if(array_key_exists($blockid, $this->plugin->relicBlocks))
 				{
-					$arr = $event->getDrops();
-					array_push($arr, $relic);
-					$event->setDrops($arr);
+
+					$chance = $this->plugin->relicBlocks[ $blockid ];
+					$relic = $this->plugin->relic->foundRelic($event->getPlayer(), $chance);
+					if($relic instanceof Item)
+					{
+						$arr = $event->getDrops();
+						array_push($arr, $relic);
+						$event->setDrops($arr);
+					}
 				}
-			}
-			
-			if(array_key_exists($blockid. "-". $blockmeta, $this->plugin->premyo->getNested("breakmoney")))
-			{
-				$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney.". $blockid. "-". $blockmeta) );
-				$min = (int) $pr[0];
-				$max = (int) $pr[1];
-				Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_rand($min, $max));
+
+				if(array_key_exists($blockid. "-". $blockmeta, $this->plugin->premyo->getNested("breakmoney")))
+				{
+					$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney.". $blockid. "-". $blockmeta) );
+					$min = (int) $pr[0];
+					$max = (int) $pr[1];
+					Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_rand($min, $max));
+				}
 			}
 		}
    	}
