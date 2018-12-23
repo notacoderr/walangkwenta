@@ -136,7 +136,7 @@ class EventListener implements Listener{
 		}
 		if($item->getId() == Item::ENCHANTED_BOOK && $item->getDamage() == 101)
 		{
-			$player->sendPopup(TextFormat::RESET . TextFormat::YELLOW . "Mask Charm");
+			$player->sendPopup(TF::RESET . TF::YELLOW . "Mask Charm");
 		}
 	}
 	
