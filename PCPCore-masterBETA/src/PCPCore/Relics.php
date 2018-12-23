@@ -42,7 +42,6 @@ class Relics {
 			} else {
 				$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY(), $player->getZ()), $relic);
 			}
-			
 			return true;
     		}
 		return false;
@@ -57,12 +56,12 @@ class Relics {
 		$cmds = (array) $datas->getNested("contains." . $lore . ".cmd"); //get array of commands
 		shuffle($items); //this'll shuffle the item array
 		$item = $items[0]; //pick the first one in the array
-		$i = explode("---", $item); //separates item data and enchantments
-		$itemdata = explode(" : ", $i[0]); //item data
+		$cache = explode("---", $item); //separates item data and enchantments
+		$itemdata = explode(" : ", $cache[0]); //item data
 		$finalitem = Item::get($itemdata[1], $itemdata[2]); //id & meta
 		$finalitem->setCount($itemdata[3]); //count
 		$finalitem->setCustomName("$itemdata[0]"); //custom name
-		$ench = explode(" : ", $i[1]); //item enchantments
+		$ench = explode(" : ", $cache[1]); //item enchantments
 		if(count($ench) > 0)
 		{
 			foreach($ench as $enchantment)
@@ -107,7 +106,7 @@ class Relics {
 		{
 			//custom ench
 		} else {
-			$item->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment($e), $lvl));
+			//$item->addEnchantment(new EnchantmentInstance(Enchantment::getEnchantment($e), $lvl));
 		}		
 		return $item;
 	}
