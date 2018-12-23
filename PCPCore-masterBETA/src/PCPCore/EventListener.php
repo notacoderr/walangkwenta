@@ -72,11 +72,11 @@ class EventListener implements Listener{
         }
 	    
 	//$item = $event->getItemHand();
-	if($item->getId() == 146 && $item->getDamage() == 69 && !$player->isCreative())
+	if($item->getId() == 449 && $item->getDamage() == 69 && !$player->isCreative())
 	{
 		$this->plugin->relic->openRelic($player, $item);
-		$event->setCancelled();
-		$player->getInventory()->remove(Item::get(146, 69, 1));
+		//$player->getInventory()->remove(Item::get(449, 69, 1));
+		$player->getInventory()->setItemInHand(Item::get(0));
 	}
     }
     
