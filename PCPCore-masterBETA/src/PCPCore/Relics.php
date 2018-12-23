@@ -30,11 +30,11 @@ class Relics {
 			$relic = Item::get(450, 69, 1);
       			switch($this->getRandomRelic())
       			{
-				case "Tier I": $relic->setLore([ TF::AQUA. "Tier I", TF::WHITE. "Smash anywhere to open!" ]); break;
-				case "Tier II": $relic->setLore([ TF::YELLOW. "Tier II", TF::WHITE. "Smash anywhere to open!" ]); break;
-				case "Tier III": $relic->setLore([ TF::LIGHT_PURPLE. "Tier III", TF::WHITE. "Smash anywhere to open!" ]); break;
-				case "Tier IV": $relic->setLore([ TF::DARK_PURPLE. "Tier IV", TF::WHITE. "Smash anywhere to open!" ]); break;
-				case "Tier V": $relic->setLore([ TF::BLACK. "Tier V", TF::WHITE. "Smash anywhere to open!" ]); break;
+				case "Tier I": $relic->setLore([ TF::BOLD. TF::AQUA. "Tier I", TF::RESET. TF::WHITE. "Tap anywhere to open!" ]); break;
+				case "Tier II": $relic->setLore([ TF::BOLD. TF::YELLOW. "Tier II", TF::RESET. TF::WHITE. "Tap anywhere to open!" ]); break;
+				case "Tier III": $relic->setLore([ TF::BOLD. TF::LIGHT_PURPLE. "Tier III", TF::RESET. TF::WHITE. "Tap anywhere to open!" ]); break;
+				case "Tier IV": $relic->setLore([ TF::BOLD. TF::DARK_PURPLE. "Tier IV", TF::RESET. TF::WHITE. "Tap anywhere to open!" ]); break;
+				case "Tier V": $relic->setLore([ TF::BOLD. TF::GRAY. "Tier V", TF::RESET. TF::WHITE. "Tap anywhere to open!" ]); break;
 				default:
 					return false;
       			}
