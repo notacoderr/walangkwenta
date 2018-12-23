@@ -211,35 +211,6 @@ class Core extends PluginBase{
         // TASKS \\
         $this->getScheduler()->scheduleRepeatingTask(new MaskTask($this), 20);
         $this->getScheduler()->scheduleRepeatingTask(new ClearLaggTask($this), 20 * 60 * 5);
-        // Block overrides -- @Hytlenz
-        BlockFactory::registerBlock(new class extends Bedrock {
-        	public function getBlastResistance(): float{
-				return 38;
-			}
-		}, true);
-        BlockFactory::registerBlock(new class extends TNT {
-        	public function onActivate(Item $item, Player $player = \null): bool{
-				if($item->getId() === Item::FLINT_STEEL){
-					if(isset(Core::$TNT_timeouts[$player->getId()])){
-						$diff = time() - Core::$TNT_timeouts[$player->getId()];
-						if($diff > 15){
-							Core::$TNT_timeouts[$player->getId()] = time();
-							$item->useOn($this);
-							$this->ignite();
-						} else {
-							$player->sendMessage("§l§8(§b!§8)" . TextFormat::RESET . TextFormat::RED . " TNT is in cooldown at the moment." . TextFormat::RESET . TextFormat::RED . "\nPlease wait for $diff seconds.");
-						}
-					} else {
-						Core::$TNT_timeouts[$player->getId()] = time();
-						$item->useOn($this);
-						$this->ignite();
-					}
-					return true;
-				}
-
-				return false;
-			}
-		}, true);
     }
     
     private function economyCheck() : bool{
