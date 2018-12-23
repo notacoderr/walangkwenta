@@ -30,7 +30,7 @@ class Relics {
       			{
 				case "Tier I": $relic->setLore([ TF::AQUA. "Tier I", TF::WHITE. "Smash anywhere to open!" ]); break;
 				case "Tier II": $relic->setLore([ TF::YELLOW. "Tier II", TF::WHITE. "Smash anywhere to open!" ]); break;
-				case "Tier III": $relic->setLore([ TF::PURPLE. "Tier III", TF::WHITE. "Smash anywhere to open!" ]); break;
+				case "Tier III": $relic->setLore([ TF::LIGHT_PURPLE. "Tier III", TF::WHITE. "Smash anywhere to open!" ]); break;
 				case "Tier IV": $relic->setLore([ TF::DARK_PURPLE. "Tier IV", TF::WHITE. "Smash anywhere to open!" ]); break;
 				case "Tier V": $relic->setLore([ TF::BLACK. "Tier V", TF::WHITE. "Smash anywhere to open!" ]); break;
 				default:
