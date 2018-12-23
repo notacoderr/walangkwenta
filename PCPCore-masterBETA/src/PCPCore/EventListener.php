@@ -94,14 +94,17 @@ class EventListener implements Listener{
 			switch( $blockid )
 			{
 				case 1:
-					if(mt_rand(1, 10) <= 2)
+					$this->main->relic->foundRelic($event->getPlayer());
+					Server::getInstance()->broadcastMessage("§l§7(§a!§7)§r§b". $event->getPlayer()->getName(). " §7Found an ancient Pocket Artifact!");
+					/*if(mt_rand(1, 10) <= 2)
 					{
 						     $name = $event->getPlayer()->getName();
 						     $relic = Item::get(54, 101, 1);
 						     $relic->setCustomName(TF::RESET . TF::WHITE . "Pocket" . TF::AQUA . " Artifact");
 						     $event->getPlayer()->getInventory()->addItem($relic);
+						
 						     Server::getInstance()->broadcastMessage(TF::BOLD . TF::DARK_GRAY . "(" . TF::AQUA . "!" . TF::DARK_GRAY . ")" . TF::RESET . TF::AQUA .  " $name" . TF::GRAY . " Found a Pocket Artifact!");
-					}
+					}*/
 				break;
 				/*
 				case 4: id ata ng cobblestone
@@ -149,8 +152,12 @@ class EventListener implements Listener{
 	function onTap(BlockPlaceEvent $event){
 	$player = $event->getPlayer();
         $item = $event->getItem();
-        $damage = $event->getItem()->getDamage();
-        $prot = Enchantment::getEnchantment(0);
+	if($item->getId() == 146 && $item->getDamage() == 69 && !$player->isCreative())
+	{
+		$this->main->relic->openRelic($player, $item);
+		$player->setItemInHand(Item::AIR);
+	}
+        /*$prot = Enchantment::getEnchantment(0);
         $unb = Enchantment::getEnchantment(17);
         $sharp = Enchantment::getEnchantment(9);
         $eff = Enchantment::getEnchantment(15);
@@ -203,7 +210,7 @@ class EventListener implements Listener{
             $event->setCancelled();
             $player->getInventory()->removeItem($relic);
             break;
-	}
+	}*/
     }
 	
 	function onDeath(PlayerDeathEvent $ev) : void
