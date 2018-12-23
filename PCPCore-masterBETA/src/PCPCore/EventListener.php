@@ -18,7 +18,6 @@ use pocketmine\event\player\{
 
 use pocketmine\event\block\{BlockBreakEvent, BlockPlaceEvent};
 
-use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\item\Item;
 use pocketmine\Player;
 use pocketmine\Server;
