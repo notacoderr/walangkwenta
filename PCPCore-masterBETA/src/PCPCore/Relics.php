@@ -23,7 +23,7 @@ class Relics {
 		$this->main = $main;
 	}
   
-  	public function foundRelic(Player $player, int $chance) : bool
+  	public function foundRelic(Player $player, int $chance)
   	{
     		if($this->isLucky($chance))
     		{
@@ -38,16 +38,16 @@ class Relics {
 				default:
 					return false;
       			}
-			$relic->setCustomName("§r§dVoid §7Relic"); //meh, fuck me
-			if($player->getInventory()->canAddItem($relic))
+			$relic->setCustomName("§r§dAncient §7Pocket Relic"); //meh, fuck me
+			/*if($player->getInventory()->canAddItem($relic))
 			{
 				$player->getInventory()->addItem($relic);
 			} else {
-				$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY(), $player->getZ()), $relic);
-			}
-			return true;
+				$player->getLevel()->dropItem(new Vector3($player->getX(), $player->getY() + 0.05, $player->getZ()), $relic);
+			}*/
+			return $relic;
     		}
-		return false;
+		return;
   	}
   
 	public function openRelic(Player $player, Item $item) : void
