@@ -90,36 +90,31 @@ class EventListener implements Listener{
 
 	function onBreak(BlockBreakEvent $event) : void
 	{
-		if($event->isCancelled() == false) //not done yet, 
+		if (!$event->getPlayer()->isCreative())
 		{
-			var_dump($event->isCancelled());
-			if (!$event->getPlayer()->isCreative())
+			$blockid = $event->getBlock()->getId();
+			$blockmeta = $event->getBlock()->getDamage();
+			if(array_key_exists($blockid. "-". $blockmeta, $this->plugin->premyo->getNested("breakmoney")))
 			{
-				$blockid = $event->getBlock()->getId();
-				$blockmeta = $event->getBlock()->getDamage();
-				if(array_key_exists($blockid, $this->plugin->relicBlocks))
-				{
-					var_dump($event->isCancelled());
-					$chance = $this->plugin->relicBlocks[ $blockid ];
-					$relic = $this->plugin->relic->foundRelic($event->getPlayer(), $chance);
-					if($relic instanceof Item)
-					{
-						var_dump($event->isCancelled());
-						$arr = $event->getDrops();
-						array_push($arr, $relic);
-						$event->setDrops($arr);
-					}
-				}
+				$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney.". $blockid. "-". $blockmeta) );
+				$min = (int) $pr[0];
+				$max = (int) $pr[1];
+				Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_rand($min, $max));
+			}
 
-				if(array_key_exists($blockid. "-". $blockmeta, $this->plugin->premyo->getNested("breakmoney")))
+			if(array_key_exists($blockid, $this->plugin->relicBlocks))
+			{
+				$chance = $this->plugin->relicBlocks[ $blockid ];
+				$relic = $this->plugin->relic->foundRelic($event->getPlayer(), $chance);
+				if($relic instanceof Item)
 				{
-					$pr = explode( "-", $this->plugin->premyo->getNested("breakmoney.". $blockid. "-". $blockmeta) );
-					$min = (int) $pr[0];
-					$max = (int) $pr[1];
-					Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI")->addMoney($event->getPlayer(), mt_rand($min, $max));
+					$arr = $event->getDrops();
+					array_push($arr, $relic);
+					$event->setDrops($arr);
 				}
 			}
 		}
+		var_dump($event->isCancelled());
    	}
 
 	function onRespawn(PlayerRespawnEvent $event) : void
