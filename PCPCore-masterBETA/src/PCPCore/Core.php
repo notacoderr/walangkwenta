@@ -151,7 +151,7 @@ class Core extends PluginBase{
    	private static $instance = null;
 	
    	 /** @var Config */
-    	public $config, $settings, $getRelics, $relicBlocks = [], $chat = [];
+    	public $config, $settings, $relicBlocks = [], $randRelic = [], $chat = [];
 
     public static function getInstance() : self{
         return self::$instance;
@@ -190,7 +190,19 @@ class Core extends PluginBase{
 	{
 		$this->relicBlocks[ $id ] = $chance; 
 	}
-
+	   
+	foreach($this->relics->getNested("relics-drop-rate") as $tier => $chance)
+	{
+		$this->randRelic[ $tier ] = $chance;
+	}
+	    
+	if(array_sum($this->randRelic) > 100)
+    	{
+		$this->getLogger()->error("§4The sum of §f[relics-drop-rate]§4 is more than 100");
+		$this->getPluginLoader()->disablePlugin($this);
+		return false;
+		
+	}
         if(is_numeric($this->settings->get("seconds"))){
             $this->getScheduler()->scheduleRepeatingTask(new BroadcastTask($this), $this->settings->get("seconds") * 20);
         }
