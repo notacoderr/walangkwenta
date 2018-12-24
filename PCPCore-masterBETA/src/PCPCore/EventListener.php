@@ -88,7 +88,7 @@ class EventListener implements Listener{
         }
     }
 
-	public function onBreak(BlockBreakEvent $event) : void
+	function onBreak(BlockBreakEvent $event) : void
 	{
 		if($event->isCancelled() == false) //not done yet, 
 		{
@@ -99,11 +99,12 @@ class EventListener implements Listener{
 				$blockmeta = $event->getBlock()->getDamage();
 				if(array_key_exists($blockid, $this->plugin->relicBlocks))
 				{
-
+					var_dump($event->isCancelled());
 					$chance = $this->plugin->relicBlocks[ $blockid ];
 					$relic = $this->plugin->relic->foundRelic($event->getPlayer(), $chance);
 					if($relic instanceof Item)
 					{
+						var_dump($event->isCancelled());
 						$arr = $event->getDrops();
 						array_push($arr, $relic);
 						$event->setDrops($arr);
