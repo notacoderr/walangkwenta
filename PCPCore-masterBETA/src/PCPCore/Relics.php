@@ -91,16 +91,8 @@ class Relics {
   
 	private function getRandomRelic() : string
 	{
-		$relics = (array) $this->main->relics->getNested("relics-drop-rate");
-		$sum = (int) array_sum($relics);
-		
-    		if($sum > 100)
-    		{
-			$this->main->getLogger()->error("§cthe sum of [relic chance rate] is more than 100");
-			return "";
-		}
-    
-		$rand = mt_rand(1, $sum);
+		$relics = $this->main->randRelic;
+		$rand = mt_rand(1, (int) array_sum($relics));
 		foreach ($relics as $relic => $chance)
 		{
      			$rand -= $chance;
@@ -117,7 +109,6 @@ class Relics {
 		{
 			//custom ench
 		}
-
 		if($enchId <= 32 && $enchId >= 0)
 		{
 			$enchantment = Enchantment::getEnchantment($enchId);
@@ -126,7 +117,6 @@ class Relics {
 				$item->addEnchantment( new EnchantmentInstance($enchantment, $lvl) );
 			}
 		}
-
 		return $item;
 	}
 }
