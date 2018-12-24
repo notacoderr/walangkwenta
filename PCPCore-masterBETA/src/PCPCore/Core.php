@@ -157,7 +157,8 @@ class Core extends PluginBase{
         return self::$instance;
     }
 
-    public function onEnable() : void{
+    public function onEnable() : bool
+    {
 	$this->relic = new Relics($this);
         // COMMANDS \\
         $this->getServer()->getCommandMap()->registerAll("PCPCore", [
@@ -216,6 +217,8 @@ class Core extends PluginBase{
         // TASKS \\
         $this->getScheduler()->scheduleRepeatingTask(new MaskTask($this), 20);
         $this->getScheduler()->scheduleRepeatingTask(new ClearLaggTask($this), 20 * 60 * 5);
+	    
+	return true;
     }
     
     private function economyCheck() : bool{
