@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace PCPCore;
+namespace CorePCP;
 
-use PCPCore\events\{
+use CorePCP\events\{
     AntiAdvertising, AntiSwearing, CustomPotionEvent, Generate
 };
-use PCPCore\cmds\{
-	FlyCommand, HeadCommand, MaskCommand, TagCommand, RulesCommand, CustomPotion, WildCommand, StaffCommand
+use CorePCP\cmds\{
+	GlideCommand, HeadCommand, MaskCommand, TagCommand, RulesCommand, CustomPotion, WildCommand, StaffCommand, CureCommand
 };
-use PCPCore\tasks\{
+use CorePCP\tasks\{
 	BroadcastTask, ClearLaggTask, MaskTask
 };
 
@@ -26,8 +26,8 @@ use pocketmine\event\player\{
 class Core extends PluginBase{
 
     public const PERM_RANK = "§l§8(§c!§8)§r §7You don't have permission to use this command!";
-	public const PERM_STAFF = "§l§8(§c!§8)§r §7Only staff members can use this command!";
-	public const USE_IN_GAME = "§l§8(§c!§8)§r §7Please use this command in-game!";
+    public const PERM_STAFF = "§l§8(§c!§8)§r §7Only staff members can use this command!";
+    public const USE_IN_GAME = "§l§8(§c!§8)§r §7Please use this command in-game!";
 
 	public const MASK_DAMAGE_TO_NAME = [
 		3 => "Steve Mask",
@@ -161,8 +161,8 @@ class Core extends PluginBase{
     {
 	$this->relic = new Relics($this);
         // COMMANDS \\
-        $this->getServer()->getCommandMap()->registerAll("PCPCore", [
-            new FlyCommand("fly", $this),
+        $this->getServer()->getCommandMap()->registerAll("CorePCP", [
+            new FlyCommand("glide", $this),
             new TagCommand("tag", $this),
             new RulesCommand("rules", $this),
             new CustomPotion("potion", $this),
@@ -170,6 +170,7 @@ class Core extends PluginBase{
             new MaskCommand("mask", $this),
             new HeadCommand("head", $this),
             new StaffCommand("staffs", $this),
+	    new CureCommand("cure", $this),
         ]);
         // CONFIGS \\
         @mkdir($this->getDataFolder());
