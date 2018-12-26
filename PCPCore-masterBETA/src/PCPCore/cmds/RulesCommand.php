@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PCPCore\cmds;
+namespace CorePCP\cmds;
 
-use PCPCore\Core;
+use CorePCP\Core;
 use pocketmine\command\{
     Command, CommandSender, PluginCommand
 };
