@@ -27,7 +27,7 @@ class HeadCommand extends PluginCommand {
 				$money = $eco->myMoney($target) * 0.05;
 				$eco->reduceMoney($target, $money, true);
 				$eco->addMoney($sender, $money, true);
-				$sender->sendMessage(C::BOLD . C::DARK_GRAY . "(" . C::AQUA . "!" . C::DARK_GRAY . ")" . C::RESET . C::GRAY . " You got " . C::GOLD . "$" . $money . C::GRAY . " from " . C::AQUA . $target);
+				$sender->sendMessage(C::BOLD . C::DARK_GRAY . "(" . C::GREEN . "!" . C::DARK_GRAY . ")" . C::RESET . C::GRAY . " You got " . C::GOLD . "$" . $money . C::GRAY . " from " . C::AQUA . $target);
 				$item->setCount(1);
 				$sender->getInventory()->removeItem($item);
 			}
