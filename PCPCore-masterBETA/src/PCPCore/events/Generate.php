@@ -1,7 +1,6 @@
 <?php
 
-namespace PCPCore\events;
-
+namespace CorePCP\events;
 
 use pocketmine\math\Vector3;
 use pocketmine\Player;
