@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PCPCore\cmds;
+namespace CorePCP\cmds;
 
-use PCPCore\Core;
+use CorePCP\Core;
 use pocketmine\command\{Command, CommandSender, PluginCommand};
 use pocketmine\Player;
 use pocketmine\utils\TextFormat as TF;
@@ -27,7 +27,7 @@ class StaffCommand extends PluginCommand{
     
      $form = $this->plugin->getServer()->getPluginManager()->getPlugin("FormAPI")->createCustomForm(function (Player $sender, array $data){});
         
-        $form->setTitle(TF::BOLD . "PCP Staffs");
+        $form->setTitle(TF::BOLD . TF::WHITE . "PCP Staffs");
         $form->addLabel(file_get_contents($this->plugin->getDataFolder() . "staffs.txt"));
         $form->sendToPlayer($sender);
         return true;
