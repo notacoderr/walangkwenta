@@ -23,6 +23,7 @@ class CureCommand extends PluginCommand{
         if(!$sender instanceof Player) return false;
         if($sender->hasPermission("pcp.cure")){
             $sender->sendMessage("§l§8(a!§8)§r§7 You have been cured!");
+            $sender->addTitle("§l§aCured", "§7By the Chosen");
             $sender->setHealth(20);
             $sender->setFood(20);
             }
