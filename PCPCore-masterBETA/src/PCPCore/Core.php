@@ -11,7 +11,7 @@ use PCPCore\cmds\{
 	FlyCommand, HeadCommand, MaskCommand, TagCommand, RulesCommand, CustomPotion, WildCommand, StaffCommand
 };
 use PCPCore\tasks\{
-	BroadcastTask, ClearLaggTask, MaskTask, SmeltTask
+	BroadcastTask, ClearLaggTask, MaskTask
 };
 
 use pocketmine\utils\{Config, TextFormat};
@@ -176,10 +176,6 @@ class Core extends PluginBase{
         $this->saveResource("rules.txt");
         $this->saveResource("staffs.txt");
         
-        $this->saveDefaultConfig();
-        $this->getServer()->getPluginManager()->registerEvents(new SmeltTask(), $this);
-        $this->economyCheck();
-        
         $this->saveResource("broadcast.yml");
         $this->settings = new Config($this->getDataFolder() . "broadcast.yml", Config::YAML);
 	$this->saveResource("premyo.yml");
@@ -219,16 +215,5 @@ class Core extends PluginBase{
         $this->getScheduler()->scheduleRepeatingTask(new ClearLaggTask($this), 20 * 60 * 5);
 	    
 	return true;
-    }
-    
-    private function economyCheck() : bool{
-        if($this->getConfig()->get("economy") === "on"){
-            if($this->getServer()->getPluginManager()->getPlugin("EconomyAPI") === null){
-                $this->getLogger()->error(TextFormat::RED . "PCPCore disabled! You must enable/install EconomyAPI or turn off economy support in the config!");
-                $this->getPluginLoader()->disablePlugin($this);
-                return false;
-            }
-        }elseif($this->getConfig()->get("economy") === "off") return false;
-        return true;
     }
 }
