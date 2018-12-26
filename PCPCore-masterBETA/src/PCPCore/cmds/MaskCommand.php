@@ -1,8 +1,8 @@
 <?php
 
-namespace PCPCore\cmds;
+namespace CorePCP\cmds;
 
-use PCPCore\Core;
+use CorePCP\Core;
 use pocketmine\utils\TextFormat;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginCommand;
