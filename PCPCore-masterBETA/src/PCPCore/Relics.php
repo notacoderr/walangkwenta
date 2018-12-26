@@ -1,8 +1,8 @@
 <?php
 
-namespace PCPCore;
+namespace CorePCP;
 
-use PCPCore\Core;
+use CorePCP\Core;
 
 use pocketmine\Player;
 use pocketmine\Server;
@@ -39,8 +39,8 @@ class Relics {
 				default:
 					return false;
       			}
-			$relic->setCustomName("§o§dVoid §7PocketRelic : §c". $tier);
-			Server::getInstance()->broadcastMessage("§l§8(§b!§8)§r§b ". $player->getName(). " §7Found a §dVoid §7PocketRelic : §c". $tier);
+			$relic->setCustomName("§r§dVoid §7Relic : §c". $tier);
+			Server::getInstance()->broadcastMessage("§l§8(§b!§8)§r§b ". $player->getName(). " §7Found a §dVoid §7Relic : §c". $tier);
 			return $relic;
     		}
 		return false;
