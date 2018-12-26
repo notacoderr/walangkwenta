@@ -30,7 +30,7 @@ class RulesCommand extends PluginCommand{
 
         $form = $this->plugin->getServer()->getPluginManager()->getPlugin("FormAPI")->createCustomForm(function (Player $sender, array $data){});
 
-        $form->setTitle("§lHouse Rules");
+        $form->setTitle("§l§fHouse Rules");
         $form->addLabel(file_get_contents($this->plugin->getDataFolder() . "rules.txt"));
         $form->sendToPlayer($sender);
         return true;
