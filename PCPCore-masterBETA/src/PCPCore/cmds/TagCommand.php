@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PCPCore\cmds;
+namespace CorePCP\cmds;
 
-use PCPCore\Core;
+use CorePCP\Core;
 use pocketmine\command\{
     Command, CommandSender, PluginCommand
 };
@@ -27,13 +27,13 @@ class TagCommand extends PluginCommand{
             if(isset($args[0])){
                 if($args[0] == "off"){
                     $sender->setDisplayName($sender->getName());
-                    $sender->sendMessage("§l§8(§b!§8)§r §7You tag is off");
+                    $sender->sendMessage("§l§8(§a!§8)§r §7You tag is off");
                 }else{
                     $sender->setDisplayName("#" . $args[0]);
-                    $sender->sendMessage("§l§8(§b!§8)§r §r§7Your tag is now§8:§a #" . $args[0]);
+                    $sender->sendMessage("§l§8(§a!§8)§r §r§7Your tag is now§8:§a #" . $args[0]);
                 }
             }else{
-                $sender->sendMessage("§l§8(§b!§8)§r §l§cUsage§8:§r§7 /tag <name|off>");
+                $sender->sendMessage("§l§8(§c!§8)§r §l§cUsage§8:§r§7 /tag <name|off>");
                 return false;
             }
         }else{
