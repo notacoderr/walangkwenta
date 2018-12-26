@@ -1,8 +1,8 @@
 <?php
 
-namespace PCPCore\cmds;
+namespace CorePCP\cmds;
 
-use PCPCore\Core;
+use CorePCP\Core;
 use pocketmine\utils\TextFormat as C;
 use onebone\economyapi\EconomyAPI;
 use pocketmine\command\CommandSender;
