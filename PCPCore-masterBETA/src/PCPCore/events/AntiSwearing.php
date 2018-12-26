@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PCPCore\events;
+namespace CorePCP\events;
 
-use PCPCore\Core;
+use CorePCP\Core;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\Player;
@@ -29,7 +29,7 @@ class AntiSwearing implements Listener{
         }else{
             foreach($this->badwords as $badwords){
                 if(strpos($msg, $badwords) !== false){
-                    $player->sendMessage("§l§fP§bC§fP §8»§r §aDo not §cswear, §aor you might get banned!");
+                    $player->sendMessage("§l§8(§c!§8)§r §7Do not §cSwear, §7or you might get banned!");
                     $event->setCancelled();
                     return;
                 }
