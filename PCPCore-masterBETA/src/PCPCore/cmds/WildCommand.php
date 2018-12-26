@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PCPCore\cmds;
+namespace CorePCP\cmds;
 
-use PCPCore\Core;
+use CorePCP\Core;
 use pocketmine\command\{
     Command, CommandSender, PluginCommand
 };
@@ -30,7 +30,7 @@ class WildCommand extends PluginCommand{
         $z = mt_rand(1, 999);
         $y = $sender->getLevel()->getHighestBlockAt($x, $z) + 1;
         $sender->teleport(new Position($x, $y, $z, $sender->getLevel()));
-        $sender->sendMessage("§l§8(§b!§8)§r §7You have been teleported to a random spot in the wilderness!");
+        $sender->sendMessage("§l§8(§a!§8)§r §7You have been teleported to a random spot in the wilderness!");
         $sender->addTitle("§l§aTeleporting...", "§r§bWild");
         return true;
     }
