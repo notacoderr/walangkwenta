@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PCPCore\tasks;
+namespace CorePCP\tasks;
 
-use PCPCore\Core;
+use CorePCP\Core;
 use pocketmine\entity\Effect;
 use pocketmine\entity\EffectInstance;
 use pocketmine\item\Item;
