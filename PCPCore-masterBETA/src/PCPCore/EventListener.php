@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PCPCore;
+namespace CorePCP;
 
-use PCPCore\Core;
+use CorePCP\Core;
 
 use pocketmine\utils\TextFormat as TF;
 use pocketmine\entity\Living;
@@ -44,7 +44,7 @@ class EventListener implements Listener{
 			if(isset($this->plugin->chat[strtolower($player->getName())])){
 				if((time() - $this->plugin->chat[strtolower($player->getName())]) < 5){
 					$event->setCancelled();
-					$player->sendMessage("§l§fP§bC§fP §8»§r §cPlease wait before chatting again!");
+					$player->sendMessage("§l(§c!§8)§r§7 Please wait before chatting again!");
 				} else {
 					$this->plugin->chat[strtolower($player->getName())] = time();
 				}
@@ -83,7 +83,7 @@ class EventListener implements Listener{
             if(!$entity->isCreative() && $entity->getAllowFlight()){
                 $entity->setFlying(false);
                 $entity->setAllowFlight(false);
-                $entity->sendMessage("§l§8(§b!§8)§r §cDisabled Flight since you're in combat.");
+                $entity->sendMessage("§l§8(§c!§8)§r §cDisabled Flight since you're in combat.");
             }
         }
     }
