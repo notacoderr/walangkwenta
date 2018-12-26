@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PCPCore\tasks;
+namespace CorePCP\tasks;
 
-use PCPCore\Core;
+use CorePCP\Core;
 use pocketmine\utils\TextFormat as TF;
 use pocketmine\entity\Human;
 use pocketmine\scheduler\Task;
