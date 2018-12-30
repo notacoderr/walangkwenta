@@ -11,6 +11,7 @@ use pocketmine\math\Vector3;
 use pocketmine\inventory\Inventory;
 use pocketmine\utils\TextFormat as TF;
 use pocketmine\item\enchantment\{Enchantment, EnchantmentInstance};
+use DaPigGuy\PiggyCustomEnchants\CustomEnchants\{CustomEnchants, CustomEnchantsIds};
 
 use pocketmine\command\ConsoleCommandSender;
 
@@ -103,15 +104,18 @@ class Relics {
     		}
   	}
 	
-	private function enchantItem(Item $item, int $enchId, int $lvl) : Item
+	private function enchantItem(Item $item, $enchId, int $lvl) : Item
 	{
-		if($enchId >= 100)
+		if($enchId >= 100 or is_string($enchId))
 		{
-			//custom ench
+			if(($pce = Server::getInstance()->getPluginManager()->getPlugin("PiggyCustomEnchant")) != null)
+			{
+				$pce->addEnchantment($item, $id, $lvl);
+			}
 		}
 		if($enchId <= 32 && $enchId >= 0)
 		{
-			$enchantment = Enchantment::getEnchantment($enchId);
+			$enchantment = Enchantment::getEnchantment((int) $enchId);
 			if($enchantment instanceof Enchantment)
 			{
 				$item->addEnchantment( new EnchantmentInstance($enchantment, $lvl) );
