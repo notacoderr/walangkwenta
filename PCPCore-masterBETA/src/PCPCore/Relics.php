@@ -40,7 +40,8 @@ class Relics {
 					return false;
       			}
 			$relic->setCustomName("§r§dVoid §7Relic : §c". $tier);
-			Server::getInstance()->broadcastMessage("§l§8(§b!§8)§r§b ". $player->getName(). " §7Found a §dVoid §7Relic : §c". $tier);
+			$player->sendTip("§l§8(§b!§8)§r §7You found a §dVoid §7Relic : §c". $tier);
+			//Server::getInstance()->broadcastMessage("§l§8(§b!§8)§r§b ". $player->getName(). " §7Found a §dVoid §7Relic : §c". $tier);
 			return $relic;
     		}
 		return false;
