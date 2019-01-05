@@ -114,13 +114,12 @@ class EventListener implements Listener{
 				}
 			}
 		}
-		var_dump($event->isCancelled());
    	}
 
 	function onRespawn(PlayerRespawnEvent $event) : void
 	{
 		$player = $event->getPlayer();
-		$player->addTitle("§l§cYOU DIED!", "§aRespawning...");
+		$player->addTitle("§l§cYOU DIED!", "§aTry harder...");
 	}
 	
 	function onHeld(PlayerItemHeldEvent $ev)
