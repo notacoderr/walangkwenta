@@ -1,17 +1,25 @@
+##################################################################
+#don't go lower than 5, since the floor limit for percentage is 5#
+##################################################################
 chance-from:
-  #id: #chance percentage out of 100
-  1: 19 #stone: 19%
-  49: 73 #obsidian
+  
+  #id: #chance percentage out of 100 (The lower the harder to get)
+  1: 11 #stone: 11% (since stone can be easily mined and you don't want your players farming relics)
+  49: 69 #obsidian (heh)
 
-##must be total of 100 only
+############################################################
+#Total of all drop rates CAN be LOWER but NOT MORE than 100#
+############################################################
 relics-drop-rate:
-  Tier I: 30
-  Tier II: 28
-  Tier III: 23
-  Tier IV: 12
-  Tier V: 7
-
-##
+  Tier I: 34
+  Tier II: 30
+  Tier III: 20
+  Tier IV: 11
+  Tier V: 5
+  
+#############################################################
+#We only support IDs for vanilla Ench, but try names for PCE#
+#############################################################
 contains:
   Tier I:
     items:
