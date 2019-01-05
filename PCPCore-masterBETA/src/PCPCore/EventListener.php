@@ -67,7 +67,7 @@ class EventListener implements Listener{
 		$ic->setCount(1);
         	$player->getInventory()->removeItem($ic);
 		$player->getInventory()->addItem($item);
-		$player->addTitle(TextFormat::GREEN . TextFormat::BOLD . "Obtained", TextFormat::YELLOW . Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
+		$player->addTitle(TF::GREEN . TF::BOLD . "Obtained", TF::YELLOW . Core::MASK_DAMAGE_TO_NAME[$item->getDamage()]);
         }
 
 	if($item->getId() == 450 && $item->getDamage() == 69 && !$player->isCreative())
@@ -154,12 +154,12 @@ class EventListener implements Listener{
 			if($k instanceof Player)
 			{
 				$head = Item::get(Item::SKULL, mt_rand(50, 100), 1);
-				$head->setCustomName(TextFormat::RESET . TextFormat::AQUA . $p->getName() . "'s Head");
+				$head->setCustomName(TF::RESET . TF::AQUA . $p->getName() . "'s Head");
 				$nbt = $head->getNamedTag();
 				$nbt->setString("head", strtolower($p->getName()));
 				$head->setNamedTag($nbt);
 				$k->getInventory()->addItem($head);
-				$k->sendMessage("§l§8(§b!§8)" . TextFormat::RESET . TextFormat::GRAY . " You have obtained " . TextFormat::AQUA . $p->getName() . "'s Head");
+				$k->sendMessage("§l§8(§b!§8)" . TF::RESET . TF::GRAY . " You have obtained " . TF::AQUA . $p->getName() . "'s Head");
 				
 				$eco = Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI");
 				$pm = explode( "-", $this->plugin->premyo->getNested("killmoney.victim") );
